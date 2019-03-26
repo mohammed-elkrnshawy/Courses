@@ -16,4 +16,17 @@
     <string name="dont">Dont Have An Account</string>
     <string name="register_now">Register Now</string>
     <string name="forget_password">Forget password ?</string>
+    <string name="instructor">|Instructor</string>
+    <string name="title">Title</string>
+    <string name="desc">Descreption</string>
+    <string name="price">Price</string>
+    <string name="location">Location</string>
+    <string name="address">Address</string>
+    <string name="duration">Duration</string>
+    <string name="start">Start</string>
+    <string name="end">End</string>
+    <string name="max">Max Of Attendence</string>
+    <string name="current">Current Attend</string>
+    <string name="cancel">Cancel</string>
+    <string name="cancelJoin">Cancel Join</string>
 </resources>
