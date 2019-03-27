@@ -40,7 +40,7 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/Denied"
+            android:src="@drawable/denied"
             android:layout_gravity="center"
             android:layout_marginStart="60dp"
 

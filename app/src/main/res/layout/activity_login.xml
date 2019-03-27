@@ -62,12 +62,13 @@
                         android:background="@drawable/shape_txt"
                         android:focusedByDefault="true"
                         android:hint="@string/email"
-                        android:inputType="phone"
+                        android:inputType="text"
                         android:textSize="14sp" />
 
                     <EditText
                         android:id="@+id/edtPassword"
                         android:inputType="textPassword"
+                        android:background="@drawable/shape_txt"
                         android:textSize="14sp"
                         android:layout_marginTop="15dp"
                         android:hint="@string/password"
