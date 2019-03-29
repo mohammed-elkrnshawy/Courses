@@ -18,25 +18,30 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import s.panorama.graduationproject.Fragment.AboutFragment;
 import s.panorama.graduationproject.Fragment.FollowingFragment;
+import s.panorama.graduationproject.Fragment.HomeFragment;
 import s.panorama.graduationproject.Fragment.JoiningFragment;
+import s.panorama.graduationproject.Fragment.NotificationFragment;
 import s.panorama.graduationproject.Fragment.PersonalPageFragment;
 import s.panorama.graduationproject.R;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private LinearLayout PersonalPage,Following,Joining,About,Logout;
-    private static TextView userName;
-    private static ImageView personPhoto;
     private View header;
-    private DrawerLayout drawerLayout ;
-    private NavigationView navigationView;
-    private FragmentManager fragmentManager;
-    private Dialog progressDialog;
-    Toolbar toolbar ;
-    public static TextView txtTitle;
+    private LinearLayout PersonalPage,Following,Joining,About,Logout;
+    private TextView userName;
+    private ImageView personPhoto;
 
+
+    @BindView(R.id.toolbar)
+    Toolbar toolbar ;
+    @BindView(R.id.navigationView)
+    NavigationView navigationView ;
+    @BindView(R.id.drawer)
+    DrawerLayout drawerLayout ;
 
 
 
@@ -44,17 +49,16 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        InitComponents();
-        setFragment(new PersonalPageFragment(),getString(R.string.personal));
+        ButterKnife.bind(this);
+
         setToolBar();
+        InitComponents();
+        setFragment(new HomeFragment(),getString(R.string.personal));
         onClick();
+
     }
 
     private void InitComponents() {
-        toolbar = findViewById(R.id.toolbar)   ;
-        fragmentManager = getFragmentManager();
-        drawerLayout=findViewById(R.id.drawer);
-        navigationView=findViewById(R.id.navigationView);
         header=navigationView.getHeaderView(0);
         PersonalPage=header.findViewById(R.id.personal);
         Joining=header.findViewById(R.id.joining);
@@ -73,9 +77,7 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-
-    public void onClick()
-    {
+    private void onClick() {
         PersonalPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -112,7 +114,6 @@ public class HomeActivity extends AppCompatActivity {
         Logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent intent=new Intent(HomeActivity.this,LoginActivity.class);
                 startActivity(intent);
                 drawerLayout.closeDrawers();
@@ -121,20 +122,13 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-
     private void setToolBar(){
-        toolbar = findViewById(R.id.toolbar) ;
         final LayoutInflater inflator = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflator.inflate(R.layout.home_bar , null);
-
-        txtTitle = view.findViewById(R.id.title) ;
 
         ImageView menu = view.findViewById(R.id.menu);
         ImageView location = view.findViewById(R.id.location);
         ImageView notification = view.findViewById(R.id.notification);
-
-
-
 
         toolbar.addView(view);
 
@@ -146,7 +140,13 @@ public class HomeActivity extends AppCompatActivity {
                 }else{
                     drawerLayout.openDrawer(GravityCompat.START);
                 }
+            }
+        });
 
+        notification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setFragment(new NotificationFragment(),getString(R.string.notification));
             }
         });
 

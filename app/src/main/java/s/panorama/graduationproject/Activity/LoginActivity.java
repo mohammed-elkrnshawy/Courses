@@ -32,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    @OnClick({R.id.txtRegister}) void onButtonClick (View view) {
+    @OnClick({R.id.txtRegister,R.id.txtForget,R.id.btnLogin}) void onButtonClick (View view) {
         switch (view.getId()) {
             case R.id.txtRegister:
                 startActivity(new Intent(LoginActivity.this,RegisterActivity.class));
@@ -47,6 +47,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void validateData() {
+        startActivity(new Intent(LoginActivity.this,HomeActivity.class));
+        finishAffinity();
     }
 
 }

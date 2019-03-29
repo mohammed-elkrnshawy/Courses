@@ -31,4 +31,8 @@
     <string name="cancelJoin">Cancel Join</string>
     <string name="register">Register</string>
     <string name="confirm_password">Confirm Password</string>
+    <string name="birthdate">Birthdate</string>
+    <string name="phone">Phone</string>
+    <string name="posts">Posts</string>
+    <string name="notification">Notification</string>
 </resources>

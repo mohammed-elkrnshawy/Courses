@@ -35,7 +35,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
     
     
-    @OnClick({R.id.txtRegister}) void onButtonClick(View view){
+    @OnClick({R.id.btnRegister}) void onButtonClick(View view){
         switch (view.getId()){
             case R.id.btnRegister:
                 validateData();

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "827141233413",
+    "firebase_url": "https://myfirebase-f5554.firebaseio.com",
+    "project_id": "myfirebase-f5554",
+    "storage_bucket": "myfirebase-f5554.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:827141233413:android:4fc2610ce9c61e62",
+        "android_client_info": {
+          "package_name": "s.panorama.graduationproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "827141233413-qndtsl87b4nb9ttaf9k2mfq2l2hto00b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBUmoY7oJELMdir5dJ4WrBEHYBuuh-VZU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
