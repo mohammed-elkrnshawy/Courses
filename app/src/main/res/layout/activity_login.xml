@@ -52,12 +52,13 @@
                     android:layout_height="wrap_content">
 
                     <EditText
+                        android:layout_margin="5dp"
+                        android:elevation="5dp"
                         android:textColor="@color/colorBlack"
                         android:padding="7dp"
                         android:id="@+id/edtEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="3dp"
                         android:background="@drawable/shape_txt"
                         android:focusedByDefault="true"
                         android:hint="@string/email"
@@ -65,12 +66,13 @@
                         android:textSize="14sp" />
 
                     <EditText
+                        android:layout_margin="5dp"
+                        android:elevation="5dp"
                         android:textColor="@color/colorBlack"
                         android:id="@+id/edtPassword"
                         android:inputType="textPassword"
                         android:background="@drawable/shape_txt"
                         android:textSize="14sp"
-                        android:layout_marginTop="10dp"
                         android:hint="@string/password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -85,7 +87,7 @@
 
                         <TextView
                             android:textSize="12sp"
-                            android:id="@+id/forget"
+                            android:id="@+id/txtForget"
                             android:padding="5dp"
                             android:layout_alignParentRight="true"
                             android:text="@string/forget_password"
@@ -103,7 +105,7 @@
 
                     <Button
                         android:elevation="5dp"
-                        android:id="@+id/btuLogin"
+                        android:id="@+id/btnLogin"
                         android:layout_marginBottom="10dp"
                         android:layout_marginTop="10dp"
                         android:paddingBottom="5dp"
@@ -134,7 +136,7 @@
                             android:textSize="12sp" />
 
                         <TextView
-                            android:id="@+id/register"
+                            android:id="@+id/txtRegister"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="5dp"
