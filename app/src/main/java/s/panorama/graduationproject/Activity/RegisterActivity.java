@@ -195,7 +195,7 @@ public class RegisterActivity extends AppCompatActivity {
             // Continue only if the File was successfully created
             if (photoFile != null) {
                 uriFilePath = FileProvider.getUriForFile(this,
-                        "panorama.course.fileprovider",
+                        "s.panorama.graduationproject.fileprovider",
                         photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uriFilePath);
                 startActivityForResult(takePictureIntent, Constant.Camera);

@@ -1,6 +1,8 @@
 package s.panorama.graduationproject.Models;
 
-public class UserObjectClass {
+import java.io.Serializable;
+
+public class UserObjectClass implements Serializable {
 
     private String UID;
     private String Email;

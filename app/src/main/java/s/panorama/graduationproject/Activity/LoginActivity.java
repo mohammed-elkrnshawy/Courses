@@ -1,6 +1,8 @@
 package s.panorama.graduationproject.Activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,7 +13,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
+import s.panorama.graduationproject.Models.UserObjectClass;
 import s.panorama.graduationproject.R;
+import s.panorama.graduationproject.Remote.AuthClass;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -23,12 +27,18 @@ public class LoginActivity extends AppCompatActivity {
     TextView txtForget;
 
 
+    private UserObjectClass userObject;
+    private AuthClass authClass;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
+        userObject=new UserObjectClass();
+        authClass=new AuthClass(this);
 
     }
 
@@ -47,8 +57,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void validateData() {
-        startActivity(new Intent(LoginActivity.this,HomeActivity.class));
-        finishAffinity();
+
+        userObject.setEmail("mohammedelkrnshawy@gmail.com");
+        userObject.setPassword("123456");
+
+        authClass.SignIn(userObject);
     }
 
 }
