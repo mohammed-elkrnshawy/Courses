@@ -26,6 +26,7 @@ import s.panorama.graduationproject.Fragment.HomeFragment;
 import s.panorama.graduationproject.Fragment.JoiningFragment;
 import s.panorama.graduationproject.Fragment.NotificationFragment;
 import s.panorama.graduationproject.Fragment.PersonalPageFragment;
+import s.panorama.graduationproject.Models.UserObjectClass;
 import s.panorama.graduationproject.R;
 
 public class HomeActivity extends AppCompatActivity {
@@ -34,6 +35,7 @@ public class HomeActivity extends AppCompatActivity {
     private LinearLayout PersonalPage,Following,Joining,About,Logout;
     private TextView userName;
     private ImageView personPhoto;
+    private UserObjectClass userObject;
 
 
     @BindView(R.id.toolbar)
@@ -51,11 +53,19 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
 
+        getIntentData();
         setToolBar();
         InitComponents();
         setFragment(new HomeFragment(),getString(R.string.personal));
         onClick();
 
+    }
+
+    private void getIntentData() {
+        Bundle bundle=getIntent().getExtras();
+        if (!bundle.isEmpty()) {
+            userObject=(UserObjectClass) bundle.get("userData");
+        }
     }
 
     private void InitComponents() {

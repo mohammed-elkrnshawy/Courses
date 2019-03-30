@@ -1,18 +1,17 @@
 package s.panorama.graduationproject.Activity;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnItemClick;
 import s.panorama.graduationproject.Models.UserObjectClass;
 import s.panorama.graduationproject.R;
 import s.panorama.graduationproject.Remote.AuthClass;
@@ -25,6 +24,10 @@ public class LoginActivity extends AppCompatActivity {
     Button btnLogin;
     @BindView(R.id.txtForget)
     TextView txtForget;
+    @BindView(R.id.edtPassword)
+    EditText edtPassword;
+    @BindView(R.id.edtEmail)
+    EditText edtEmail;
 
 
     private UserObjectClass userObject;
@@ -37,9 +40,13 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
+        initComponents();
+
+    }
+
+    private void initComponents() {
         userObject=new UserObjectClass();
         authClass=new AuthClass(this);
-
     }
 
     @OnClick({R.id.txtRegister,R.id.txtForget,R.id.btnLogin}) void onButtonClick (View view) {
@@ -58,10 +65,21 @@ public class LoginActivity extends AppCompatActivity {
 
     private void validateData() {
 
-        userObject.setEmail("mohammedelkrnshawy@gmail.com");
-        userObject.setPassword("123456");
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(edtEmail.getText()).matches()){
+            edtEmail.setError(getResources().getString(R.string.PleaseEnterYourEmail));
+            edtEmail.requestFocus();
+            return;
+        }
 
-        authClass.SignIn(userObject);
+        if(TextUtils.isEmpty(edtPassword.getText())){
+            edtPassword.setError(getResources().getString(R.string.pleaseEnterPassword));
+            edtPassword.requestFocus();
+            return;
+        }
+
+        userObject.setEmail(edtEmail.getText().toString().trim());
+        userObject.setPassword(edtPassword.getText().toString().trim());
+        authClass.Login(userObject);
     }
 
 }

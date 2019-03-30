@@ -1,6 +1,7 @@
 package s.panorama.graduationproject.Remote;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -33,6 +34,7 @@ import java.util.UUID;
 
 import s.panorama.graduationproject.Activity.HomeActivity;
 import s.panorama.graduationproject.Classes.Constant;
+import s.panorama.graduationproject.Classes.SharedUtils;
 import s.panorama.graduationproject.Models.UserObjectClass;
 
 import static android.support.constraint.Constraints.TAG;
@@ -41,14 +43,15 @@ public class AuthClass {
 
     private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-    ;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private Context context;
     private UserObjectClass userObject;
     private Uri filePath;
+    private Dialog progressDialog;
 
     public AuthClass(Context context) {
         this.context = context;
+        progressDialog=SharedUtils.ShowWaiting(context,progressDialog);
     }
 
     public void registerUsers(final UserObjectClass userObject, Uri filePath) {
@@ -131,12 +134,14 @@ public class AuthClass {
                             Intent intent = new Intent(context, HomeActivity.class);
                             intent.putExtra("userData", userObject);
                             context.startActivity(intent);
+                            ((Activity)context).finishAffinity();
                         }
                     }
                 });
     }
 
-    public void SignIn(final UserObjectClass userObject) {
+    public void Login(final UserObjectClass userObject) {
+        progressDialog.show();
         this.userObject = userObject;
         mAuth.signInWithEmailAndPassword(userObject.getEmail(), userObject.getPassword())
                 .addOnCompleteListener((Activity) context, new OnCompleteListener<AuthResult>() {
@@ -150,10 +155,12 @@ public class AuthClass {
                                 userObject.setUID(user.getUid());
                                 Search();
                             } else {
+                                progressDialog.dismiss();
                                 Toast.makeText(context, "Pls Valid Email", Toast.LENGTH_SHORT).show();
                             }
                         } else {
                             // If sign in fails, display a message to the user.
+                            progressDialog.dismiss();
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(context, "Authentication failed." + "\n" + task.getException().getMessage(),
                                     Toast.LENGTH_SHORT).show();
@@ -168,13 +175,16 @@ public class AuthClass {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    Toast.makeText(context, "Done Here", Toast.LENGTH_SHORT).show();
+                    userObject=dataSnapshot.getValue(UserObjectClass.class);
                     startHomeActivity();
+                }
+                else {
+                    progressDialog.dismiss();
                 }
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                progressDialog.dismiss();
             }
         });
     }

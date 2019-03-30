@@ -40,4 +40,6 @@
     <string name="cancel_dialog">Cancel Dialog</string>
     <string name="add_photo">Select Photo</string>
     <string name="choose_photo">Choose Photo</string>
+    <string name="PleaseEnterYourEmail">Please Enter Your Email</string>
+    <string name="pleaseEnterPassword">please Enter Password</string>
 </resources>
