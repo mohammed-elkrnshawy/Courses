@@ -33,6 +33,7 @@ import com.google.firebase.storage.UploadTask;
 import java.util.UUID;
 
 import s.panorama.graduationproject.Activity.HomeActivity;
+import s.panorama.graduationproject.Activity.LoginActivity;
 import s.panorama.graduationproject.Classes.Constant;
 import s.panorama.graduationproject.Classes.SharedUtils;
 import s.panorama.graduationproject.Models.UserObjectClass;
@@ -55,6 +56,7 @@ public class AuthClass {
     }
 
     public void registerUsers(final UserObjectClass userObject, Uri filePath) {
+        progressDialog.show();
         this.filePath = filePath;
         this.userObject = userObject;
 
@@ -112,7 +114,11 @@ public class AuthClass {
                             if (task.isSuccessful()) {
                                 Uri taskResult = task.getResult();
                                 userObject.setPersonalPhoto(taskResult.toString());
-                                startHomeActivity();
+                                mDatabase.child(Constant.rootUsers).child(userObject.getUID()).setValue(userObject);
+                                Intent intent = new Intent(context, LoginActivity.class);
+                                context.startActivity(intent);
+                                ((Activity)context).finishAffinity();
+
                             }
                         }
                     })
@@ -131,6 +137,7 @@ public class AuthClass {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
+                            progressDialog.dismiss();
                             Intent intent = new Intent(context, HomeActivity.class);
                             intent.putExtra("userData", userObject);
                             context.startActivity(intent);

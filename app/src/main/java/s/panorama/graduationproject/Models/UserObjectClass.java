@@ -8,6 +8,8 @@ public class UserObjectClass implements Serializable {
     private String Email;
     private String Password;
     private String PersonalPhoto;
+    private String Username;
+    private String Phone;
 
     public String getEmail() {
         return Email;
@@ -25,6 +27,14 @@ public class UserObjectClass implements Serializable {
         return PersonalPhoto;
     }
 
+    public String getUsername() {
+        return Username;
+    }
+
+    public String getPhone() {
+        return Phone;
+    }
+
     public void setEmail(String email) {
         Email = email;
     }
@@ -39,5 +49,13 @@ public class UserObjectClass implements Serializable {
 
     public void setPersonalPhoto(String personalPhoto) {
         PersonalPhoto = personalPhoto;
+    }
+
+    public void setPhone(String phone) {
+        Phone = phone;
+    }
+
+    public void setUsername(String username) {
+        Username = username;
     }
 }

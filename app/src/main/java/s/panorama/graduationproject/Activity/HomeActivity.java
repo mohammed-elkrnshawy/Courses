@@ -18,6 +18,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import s.panorama.graduationproject.Fragment.AboutFragment;
@@ -53,9 +57,9 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
 
+        InitComponents();
         getIntentData();
         setToolBar();
-        InitComponents();
         setFragment(new HomeFragment(),getString(R.string.personal));
         onClick();
 
@@ -65,10 +69,28 @@ public class HomeActivity extends AppCompatActivity {
         Bundle bundle=getIntent().getExtras();
         if (!bundle.isEmpty()) {
             userObject=(UserObjectClass) bundle.get("userData");
+            setData(userObject);
         }
     }
 
+    private void setData(UserObjectClass userObject) {
+        userName.setText(userObject.getUsername());
+        ImageLoader.getInstance().displayImage(userObject.getPersonalPhoto(),personPhoto);
+    }
+
     private void InitComponents() {
+
+        //region ImageLoader
+        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .build();
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
+                .defaultDisplayImageOptions(defaultOptions)
+                .build();
+        ImageLoader.getInstance().init(config);
+        //endregion
+
         header=navigationView.getHeaderView(0);
         PersonalPage=header.findViewById(R.id.personal);
         Joining=header.findViewById(R.id.joining);

@@ -100,6 +100,20 @@
                     android:padding="7dp"
                     />
 
+                <EditText
+                    android:layout_margin="5dp"
+                    android:elevation="5dp"
+                    android:textColor="@color/colorBlack"
+                    android:id="@+id/edtPhone"
+                    android:inputType="number"
+                    android:background="@drawable/shape_txt"
+                    android:textSize="14sp"
+                    android:hint="@string/phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="7dp"
+                    />
+
                 <Button
                     android:elevation="5dp"
                     android:id="@+id/btnRegister"

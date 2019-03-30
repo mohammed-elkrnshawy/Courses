@@ -40,6 +40,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:16.0.1'
 
 
+    implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
+
+
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'com.raycoarana.codeinputview:codeinputview:1.2.5'
     implementation 'com.sothree.slidinguppanel:library:3.4.0'

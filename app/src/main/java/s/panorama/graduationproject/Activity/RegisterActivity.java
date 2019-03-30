@@ -20,6 +20,7 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -62,6 +63,8 @@ public class RegisterActivity extends AppCompatActivity {
     EditText edtPassword;
     @BindView(R.id.edtConfirmPassword)
     EditText edtConfirmPassword;
+    @BindView(R.id.edtPhone)
+    EditText edtPhone;
     @BindView(R.id.btnRegister)
     Button btnRegister;
 
@@ -100,14 +103,45 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void validateData() {
 
+        if(TextUtils.isEmpty(edtUsername.getText())){
+            edtUsername.setError(getResources().getString(R.string.requiredField));
+            edtUsername.requestFocus();
+            return;
+        }
+
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(edtEmail.getText()).matches()){
+            edtEmail.setError(getResources().getString(R.string.PleaseEnterYourEmail));
+            edtEmail.requestFocus();
+            return;
+        }
+
+        if(TextUtils.isEmpty(edtPassword.getText())){
+            edtPassword.setError(getResources().getString(R.string.pleaseEnterPassword));
+            edtPassword.requestFocus();
+            return;
+        }
+
+        if(!edtPassword.getText().toString().trim().equals(edtConfirmPassword.getText().toString().trim())){
+            edtConfirmPassword.setError(getResources().getString(R.string.dontMatch));
+            edtConfirmPassword.requestFocus();
+            return;
+        }
+
+        if(TextUtils.isEmpty(edtPhone.getText())){
+            edtPhone.setError(getResources().getString(R.string.requiredField));
+            edtPhone.requestFocus();
+            return;
+        }
+
+
         userObject.setPersonalPhoto(string);
-        userObject.setEmail("mohammedelkrnshawy@gmail.com");
-        userObject.setPassword("123456");
+        userObject.setEmail(edtEmail.getText().toString().trim());
+        userObject.setUsername(edtUsername.getText().toString().trim());
+        userObject.setPassword(edtPassword.getText().toString().trim());
+        userObject.setPhone(edtPhone.getText().toString().trim());
 
         authClass.registerUsers(userObject,uriFilePath);
     }
-
-
 
     //region PHOTO
     private void SelectPhotoDialog() {

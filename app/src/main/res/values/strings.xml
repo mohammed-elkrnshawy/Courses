@@ -42,4 +42,6 @@
     <string name="choose_photo">Choose Photo</string>
     <string name="PleaseEnterYourEmail">Please Enter Your Email</string>
     <string name="pleaseEnterPassword">please Enter Password</string>
+    <string name="requiredField">Require Field</string>
+    <string name="dontMatch">Don\'t Match</string>
 </resources>
