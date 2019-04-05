@@ -35,6 +35,7 @@ import s.panorama.graduationproject.R;
 
 public class HomeActivity extends AppCompatActivity {
 
+    private Bundle bundleFragments;
     private View header;
     private LinearLayout PersonalPage,Following,Joining,About,Logout;
     private TextView userName;
@@ -69,6 +70,7 @@ public class HomeActivity extends AppCompatActivity {
         Bundle bundle=getIntent().getExtras();
         if (!bundle.isEmpty()) {
             userObject=(UserObjectClass) bundle.get("userData");
+            bundleFragments.putSerializable("userData",userObject);
             setData(userObject);
         }
     }
@@ -91,6 +93,8 @@ public class HomeActivity extends AppCompatActivity {
         ImageLoader.getInstance().init(config);
         //endregion
 
+        bundleFragments=new Bundle();
+
         header=navigationView.getHeaderView(0);
         PersonalPage=header.findViewById(R.id.personal);
         Joining=header.findViewById(R.id.joining);
@@ -103,6 +107,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void setFragment(Fragment fragment, String Title) {
+        fragment.setArguments(bundleFragments);
         getSupportFragmentManager().beginTransaction().replace(R.id.home_container, fragment).addToBackStack(Title)
                 .commitAllowingStateLoss();
         drawerLayout.closeDrawers();

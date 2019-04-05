@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import s.panorama.graduationproject.Models.UserObjectClass;
 import s.panorama.graduationproject.R;
 
 /**
@@ -14,6 +15,8 @@ import s.panorama.graduationproject.R;
  */
 public class PersonalPageFragment extends Fragment {
 
+    private View view;
+    private UserObjectClass userObjectClass;
 
     public PersonalPageFragment() {
         // Required empty public constructor
@@ -24,7 +27,15 @@ public class PersonalPageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_personal_page, container, false);
+        view =inflater.inflate(R.layout.fragment_personal_page, container, false);
+
+        getIntentData();
+
+        return view;
+    }
+
+    private void getIntentData() {
+        userObjectClass = (UserObjectClass) getArguments().getSerializable("userData");
     }
 
 }
