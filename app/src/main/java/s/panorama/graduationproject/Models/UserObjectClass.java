@@ -10,6 +10,9 @@ public class UserObjectClass implements Serializable {
     private String PersonalPhoto;
     private String Username;
     private String Phone;
+    private String Bio;
+    private int Follower;
+    private int Following;
 
     public String getEmail() {
         return Email;
@@ -57,5 +60,29 @@ public class UserObjectClass implements Serializable {
 
     public void setUsername(String username) {
         Username = username;
+    }
+
+    public String getBio() {
+        return Bio;
+    }
+
+    public void setBio(String bio) {
+        Bio = bio;
+    }
+
+    public int getFollower() {
+        return Follower;
+    }
+
+    public void setFollower(int follower) {
+        Follower = follower;
+    }
+
+    public int getFollowing() {
+        return Following;
+    }
+
+    public void setFollowing(int following) {
+        Following = following;
     }
 }

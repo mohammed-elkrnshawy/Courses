@@ -65,6 +65,8 @@ public class RegisterActivity extends AppCompatActivity {
     EditText edtConfirmPassword;
     @BindView(R.id.edtPhone)
     EditText edtPhone;
+    @BindView(R.id.edtBio)
+    EditText edtBio;
     @BindView(R.id.btnRegister)
     Button btnRegister;
 
@@ -115,6 +117,12 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
+        if(TextUtils.isEmpty(edtPhone.getText())){
+            edtPhone.setError(getResources().getString(R.string.requiredField));
+            edtPhone.requestFocus();
+            return;
+        }
+
         if(TextUtils.isEmpty(edtPassword.getText())){
             edtPassword.setError(getResources().getString(R.string.pleaseEnterPassword));
             edtPassword.requestFocus();
@@ -127,18 +135,20 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-        if(TextUtils.isEmpty(edtPhone.getText())){
-            edtPhone.setError(getResources().getString(R.string.requiredField));
-            edtPhone.requestFocus();
+        if(TextUtils.isEmpty(edtBio.getText())){
+            edtBio.setError(getResources().getString(R.string.pleaseEnterBio));
+            edtBio.requestFocus();
             return;
         }
-
 
         userObject.setPersonalPhoto(string);
         userObject.setEmail(edtEmail.getText().toString().trim());
         userObject.setUsername(edtUsername.getText().toString().trim());
         userObject.setPassword(edtPassword.getText().toString().trim());
         userObject.setPhone(edtPhone.getText().toString().trim());
+        userObject.setBio(edtBio.getText().toString().trim());
+        userObject.setFollower(0);
+        userObject.setFollowing(0);
 
         authClass.registerUsers(userObject,uriFilePath);
     }

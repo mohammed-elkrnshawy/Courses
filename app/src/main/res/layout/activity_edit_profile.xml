@@ -7,7 +7,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.RegisterActivity">
+    tools:context=".ProfilePackage.EditProfileActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -87,33 +87,6 @@
                     android:padding="7dp"
                     />
 
-                <EditText
-                    android:layout_margin="5dp"
-                    android:elevation="5dp"
-                    android:textColor="@color/colorBlack"
-                    android:id="@+id/edtPassword"
-                    android:inputType="textPassword"
-                    android:background="@drawable/shape_txt"
-                    android:textSize="14sp"
-                    android:hint="@string/password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="7dp"
-                    />
-
-                <EditText
-                    android:layout_margin="5dp"
-                    android:elevation="5dp"
-                    android:textColor="@color/colorBlack"
-                    android:id="@+id/edtConfirmPassword"
-                    android:inputType="textPassword"
-                    android:background="@drawable/shape_txt"
-                    android:textSize="14sp"
-                    android:hint="@string/confirm_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="7dp"
-                    />
 
                 <EditText
                     android:gravity="top"
@@ -140,7 +113,7 @@
                     android:paddingTop="5dp"
                     android:textColor="@color/colorWhite"
                     android:background="@drawable/shape_btn"
-                    android:text="@string/register"
+                    android:text="@string/save"
                     android:layout_width="150dp"
                     android:layout_height="40dp"
                     android:layout_gravity="center"/>
