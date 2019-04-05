@@ -38,11 +38,12 @@
                 android:layout_height="wrap_content">
 
                 <de.hdodenhof.circleimageview.CircleImageView
+                    android:src="@drawable/ic_image"
                     android:id="@+id/imgPhoto"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp" />
+                    android:layout_width="80dp"
+                    android:layout_height="80dp" />
 
                 <EditText
                     android:layout_margin="5dp"
@@ -76,6 +77,20 @@
                     android:layout_margin="5dp"
                     android:elevation="5dp"
                     android:textColor="@color/colorBlack"
+                    android:id="@+id/edtPhone"
+                    android:inputType="number"
+                    android:background="@drawable/shape_txt"
+                    android:textSize="14sp"
+                    android:hint="@string/phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="7dp"
+                    />
+
+                <EditText
+                    android:layout_margin="5dp"
+                    android:elevation="5dp"
+                    android:textColor="@color/colorBlack"
                     android:id="@+id/edtPassword"
                     android:inputType="textPassword"
                     android:background="@drawable/shape_txt"
@@ -101,16 +116,18 @@
                     />
 
                 <EditText
+                    android:gravity="top"
+                    android:lines="3"
+                    android:maxLines="3"
                     android:layout_margin="5dp"
                     android:elevation="5dp"
                     android:textColor="@color/colorBlack"
-                    android:id="@+id/edtPhone"
-                    android:inputType="number"
+                    android:id="@+id/edtBio"
                     android:background="@drawable/shape_txt"
                     android:textSize="14sp"
-                    android:hint="@string/phone"
+                    android:hint="@string/bio"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="80dp"
                     android:padding="7dp"
                     />
 

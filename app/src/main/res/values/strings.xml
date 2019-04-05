@@ -46,4 +46,7 @@
     <string name="dontMatch">Don\'t Match</string>
     <string name="createUserWithEmailFailure">createUserWithEmailFailure</string>
     <string name="emailSent">Please Check Your Email</string>
+    <string name="bio">Bio</string>
+    <string name="pleaseEnterBio">Please Enter Bio</string>
+    <string name="followers">Follower</string>
 </resources>
