@@ -44,4 +44,6 @@
     <string name="pleaseEnterPassword">please Enter Password</string>
     <string name="requiredField">Require Field</string>
     <string name="dontMatch">Don\'t Match</string>
+    <string name="createUserWithEmailFailure">createUserWithEmailFailure</string>
+    <string name="emailSent">Please Check Your Email</string>
 </resources>
