@@ -12,8 +12,8 @@ public class AddCourseClass implements Serializable {
     private String CoursePrice;
     private String CourseLocation;
     private String CourseAddress;
-    private Long CourseStart;
-    private Long CourseEnd;
+    private String CourseStart;
+    private String CourseEnd;
     private String NumOfAttendence;
     private String currentAttendence;
 
@@ -89,19 +89,19 @@ public class AddCourseClass implements Serializable {
         CourseAddress = courseAddress;
     }
 
-    public Long getCourseStart() {
+    public String getCourseStart() {
         return CourseStart;
     }
 
-    public void setCourseStart(Long courseStart) {
+    public void setCourseStart(String courseStart) {
         CourseStart = courseStart;
     }
 
-    public Long getCourseEnd() {
+    public String getCourseEnd() {
         return CourseEnd;
     }
 
-    public void setCourseEnd(Long courseEnd) {
+    public void setCourseEnd(String courseEnd) {
         CourseEnd = courseEnd;
     }
 
