@@ -49,4 +49,5 @@
     <string name="bio">Bio</string>
     <string name="pleaseEnterBio">Please Enter Bio</string>
     <string name="followers">Follower</string>
+    <string name="save">Save</string>
 </resources>

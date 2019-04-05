@@ -21,10 +21,6 @@ public class EditProfileActivity extends AppCompatActivity implements ProfileInt
     EditText edtUsername;
     @BindView(R.id.edtEmail)
     EditText edtEmail;
-    @BindView(R.id.edtPassword)
-    EditText edtPassword;
-    @BindView(R.id.edtConfirmPassword)
-    EditText edtConfirmPassword;
     @BindView(R.id.edtPhone)
     EditText edtPhone;
     @BindView(R.id.edtBio)
