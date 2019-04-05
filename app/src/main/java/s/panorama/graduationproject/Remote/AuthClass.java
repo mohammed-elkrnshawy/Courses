@@ -37,6 +37,7 @@ import s.panorama.graduationproject.Activity.LoginActivity;
 import s.panorama.graduationproject.Classes.Constant;
 import s.panorama.graduationproject.Classes.SharedUtils;
 import s.panorama.graduationproject.Models.UserObjectClass;
+import s.panorama.graduationproject.R;
 
 import static android.support.constraint.Constraints.TAG;
 
@@ -69,6 +70,7 @@ public class AuthClass {
                             FirebaseUser user = mAuth.getCurrentUser();
                             Verification(user);
                         } else {
+                            Toast.makeText(context,context.getString(R.string.createUserWithEmailFailure), Toast.LENGTH_SHORT).show();
                             // If sign in fails, display a message to the user.
                             Log.w("G", "createUserWithEmail:failure", task.getException());
                             /*updateUI(null);*/
@@ -86,9 +88,13 @@ public class AuthClass {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             Log.d("TAG", "Email sent.");
+                            Toast.makeText(context, context.getString(R.string.emailSent), Toast.LENGTH_SHORT).show();
                             userObject.setUID(user.getUid());
                             mDatabase.child(Constant.rootUsers).child(user.getUid()).setValue(userObject);
                             uploadPhoto();
+                        }
+                        else {
+                            Verification(user);
                         }
                     }
                 });
@@ -119,6 +125,8 @@ public class AuthClass {
                                 context.startActivity(intent);
                                 ((Activity)context).finishAffinity();
 
+                            }else {
+                                uploadPhoto();
                             }
                         }
                     })
@@ -142,6 +150,9 @@ public class AuthClass {
                             intent.putExtra("userData", userObject);
                             context.startActivity(intent);
                             ((Activity)context).finishAffinity();
+                        }
+                        else {
+                            startHomeActivity();
                         }
                     }
                 });

@@ -1,10 +1,7 @@
 package s.panorama.graduationproject.Activity;
 
-import android.app.Dialog;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -29,12 +26,13 @@ import s.panorama.graduationproject.Fragment.FollowingFragment;
 import s.panorama.graduationproject.Fragment.HomeFragment;
 import s.panorama.graduationproject.Fragment.JoiningFragment;
 import s.panorama.graduationproject.Fragment.NotificationFragment;
-import s.panorama.graduationproject.Fragment.PersonalPageFragment;
+import s.panorama.graduationproject.ProfilePackage.ProfileFragment;
 import s.panorama.graduationproject.Models.UserObjectClass;
 import s.panorama.graduationproject.R;
 
 public class HomeActivity extends AppCompatActivity {
 
+    private Bundle bundleFragments;
     private View header;
     private LinearLayout PersonalPage,Following,Joining,About,Logout;
     private TextView userName;
@@ -69,6 +67,7 @@ public class HomeActivity extends AppCompatActivity {
         Bundle bundle=getIntent().getExtras();
         if (!bundle.isEmpty()) {
             userObject=(UserObjectClass) bundle.get("userData");
+            bundleFragments.putSerializable("userData",userObject);
             setData(userObject);
         }
     }
@@ -91,6 +90,8 @@ public class HomeActivity extends AppCompatActivity {
         ImageLoader.getInstance().init(config);
         //endregion
 
+        bundleFragments=new Bundle();
+
         header=navigationView.getHeaderView(0);
         PersonalPage=header.findViewById(R.id.personal);
         Joining=header.findViewById(R.id.joining);
@@ -103,6 +104,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void setFragment(Fragment fragment, String Title) {
+        fragment.setArguments(bundleFragments);
         getSupportFragmentManager().beginTransaction().replace(R.id.home_container, fragment).addToBackStack(Title)
                 .commitAllowingStateLoss();
         drawerLayout.closeDrawers();
@@ -113,7 +115,7 @@ public class HomeActivity extends AppCompatActivity {
         PersonalPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setFragment(new PersonalPageFragment(),getResources().getString(R.string.personal));
+                setFragment(new ProfileFragment(),getResources().getString(R.string.personal));
             }
         });
 
