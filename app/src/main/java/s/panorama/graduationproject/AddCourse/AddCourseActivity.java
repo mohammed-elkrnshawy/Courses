@@ -137,23 +137,16 @@ public class AddCourseActivity extends AppCompatActivity implements AddCourseInt
 
 
 
-
         addCourseClass.setInstructorName(instructorName.getText().toString().trim());
        addCourseClass.setCourseTitle(edtTitle.getText().toString().trim());
        addCourseClass.setCourseDesc(edtdesc.getText().toString().trim());
-        addCourseClass.setCourseLocation(edtLocation.getText().toString().trim());
+       addCourseClass.setCourseLocation(edtLocation.getText().toString().trim());
         addCourseClass.setCourseAddress(edtAdress.getText().toString().trim());
         addCourseClass.setCoursePrice(edtPrice.getText().toString().trim());
         addCourseClass.setCourseStart(edtstart.getText().toString().trim());
         addCourseClass.setCourseEnd(edtend.getText().toString().trim());
         addCourseClass.setCurrentAttendence(edtcurrent.getText().toString().trim());
         addCourseClass.setNumOfAttendence(edtattendence.getText().toString().trim());
-
-
-
-
-
-
 
 
     }

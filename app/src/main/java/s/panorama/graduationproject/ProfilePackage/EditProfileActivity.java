@@ -2,6 +2,8 @@ package s.panorama.graduationproject.ProfilePackage;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -16,6 +18,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import s.panorama.graduationproject.Classes.CameraFirebase;
 import s.panorama.graduationproject.Models.UserObjectClass;
 import s.panorama.graduationproject.R;
 
@@ -34,8 +37,10 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
     @BindView(R.id.btnRegister)
     Button btnRegister;
 
+    private CameraFirebase cameraFirebase;
     private UserObjectClass userObject;
     private EditProfilePresenter profilePresenter;
+    private Uri uriFilePath;
     private boolean photoChanged=false;
 
     @Override
@@ -51,6 +56,7 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
     }
 
     private void initComponents() {
+        cameraFirebase=new CameraFirebase(this);
         profilePresenter=new EditProfilePresenter(this);
         profilePresenter.viewData();
     }
@@ -62,10 +68,13 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
         }
     }
 
-    @OnClick({R.id.btnRegister}) void onButtonClick (View view) {
+    @OnClick({R.id.btnRegister,R.id.imgPhoto}) void onButtonClick (View view) {
         switch (view.getId()) {
             case R.id.btnRegister:
                 profilePresenter.checkData();
+                break;
+            case R.id.imgPhoto:
+                cameraFirebase.SelectPhotoDialog();
                 break;
         }
     }
@@ -116,7 +125,7 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
         userObject.setPhone(edtPhone.getText().toString().trim());
         userObject.setBio(edtBio.getText().toString().trim());
 
-        profilePresenter.saveData(userObject);
+        profilePresenter.uploadPhoto(uriFilePath,userObject);
 
     }
 
@@ -128,4 +137,9 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
         finish();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        uriFilePath=cameraFirebase.onResult(requestCode,imgPhoto,data);
+    }
 }

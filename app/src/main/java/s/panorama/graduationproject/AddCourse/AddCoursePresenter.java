@@ -3,7 +3,6 @@ package s.panorama.graduationproject.AddCourse;
 public class AddCoursePresenter {
     private AddCourseActivity view;
 
-
     public AddCoursePresenter(AddCourseActivity view) {
         this.view = view;
     }

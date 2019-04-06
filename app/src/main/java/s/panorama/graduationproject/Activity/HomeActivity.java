@@ -67,15 +67,14 @@ public class HomeActivity extends AppCompatActivity {
         Bundle bundle=getIntent().getExtras();
         if (!bundle.isEmpty()) {
             userObject=(UserObjectClass) bundle.get("userData");
-            bundleFragments.putSerializable("userData",userObject);
             setData(userObject);
         }
     }
 
     public static void setData(UserObjectClass userObject2) {
         userObject=userObject2;
-        userName.setText(userObject2.getUsername());
-        ImageLoader.getInstance().displayImage(userObject2.getPersonalPhoto(),personPhoto);
+        userName.setText(userObject.getUsername());
+        ImageLoader.getInstance().displayImage(userObject.getPersonalPhoto(),personPhoto);
     }
 
     private void InitComponents() {
@@ -105,6 +104,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void setFragment(Fragment fragment, String Title) {
+        bundleFragments.putSerializable("userData",userObject);
         fragment.setArguments(bundleFragments);
         getSupportFragmentManager().beginTransaction().replace(R.id.home_container, fragment).addToBackStack(Title)
                 .commitAllowingStateLoss();
