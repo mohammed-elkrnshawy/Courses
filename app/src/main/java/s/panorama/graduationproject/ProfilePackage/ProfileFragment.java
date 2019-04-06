@@ -67,7 +67,6 @@ public class ProfileFragment extends Fragment implements ProfileInterface {
         getIntentData();
 
 
-
         return view;
     }
 
