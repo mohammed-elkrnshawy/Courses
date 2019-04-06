@@ -17,6 +17,25 @@ public class AddCourseClass implements Serializable {
     private String NumOfAttendence;
     private String currentAttendence;
 
+    public AddCourseClass(String instructorName, String courseTitle, String courseDesc, String coursePrice, String courseLocation, String courseAddress, String courseStart, String courseEnd, String numOfAttendence, String currentAttendence) {
+        InstructorName = instructorName;
+        CourseTitle = courseTitle;
+        CourseDesc = courseDesc;
+        CoursePrice = coursePrice;
+        CourseLocation = courseLocation;
+        CourseAddress = courseAddress;
+        CourseStart = courseStart;
+        CourseEnd = courseEnd;
+        NumOfAttendence = numOfAttendence;
+        this.currentAttendence = currentAttendence;
+    }
+
+    public AddCourseClass()
+    {
+
+    }
+
+
     public String getCID() {
         return CID;
     }

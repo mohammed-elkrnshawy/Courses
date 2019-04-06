@@ -111,7 +111,6 @@
             android:padding="7dp"
             android:elevation="5dp"
             android:background="@drawable/shape_txt"
-            android:hint="Omnia Samir"
             android:inputType="text"
             android:layout_margin="10dp"
             android:textSize="14sp" />
@@ -143,7 +142,6 @@
             android:layout_width="200dp"
             android:layout_height="40dp"
             android:background="@drawable/shape_txt"
-            android:hint="Android Course"
             android:inputType="text"
             android:padding="7dp"
             android:elevation="5dp"
@@ -162,7 +160,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:visibility="gone"
         android:orientation="horizontal">
 
         <TextView
@@ -178,12 +175,11 @@
 
         <EditText
             android:id="@+id/edtdesc"
-            android:layout_width="250dp"
+            android:layout_width="200dp"
             android:layout_height="100dp"
             android:padding="7dp"
             android:elevation="5dp"
             android:background="@drawable/shape_txt"
-            android:hint="Android Course"
             android:inputType="text"
             android:gravity="start"
             android:layout_marginBottom="10dp"
@@ -220,7 +216,6 @@
             android:padding="7dp"
             android:elevation="5dp"
             android:background="@drawable/shape_txt"
-            android:hint="Android Course"
             android:inputType="text"
             android:layout_marginStart="45dp"
             android:layout_marginBottom="10dp"
@@ -334,7 +329,7 @@
             android:text="@string/start"
             android:textStyle="bold"
             android:textSize="16dp"
-            android:layout_margin="10dp"
+            android:layout_margin="8dp"
             />
 
         <EditText
@@ -346,7 +341,7 @@
             android:background="@drawable/shape_txt"
             android:hint="Android Course"
             android:inputType="text"
-            android:layout_margin="10dp"
+            android:layout_margin="5dp"
             android:textSize="10sp" />
 
 
@@ -356,7 +351,7 @@
             android:text="@string/end"
             android:textStyle="bold"
             android:textSize="16dp"
-            android:layout_margin="10dp"
+            android:layout_margin="8dp"
             />
 
         <EditText
@@ -368,7 +363,7 @@
             android:background="@drawable/shape_txt"
             android:hint="Android Course"
             android:inputType="text"
-            android:layout_margin="10dp"
+            android:layout_margin="5dp"
             android:textSize="10sp" />
 
 

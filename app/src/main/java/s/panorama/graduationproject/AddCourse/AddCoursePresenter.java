@@ -12,8 +12,5 @@ public class AddCoursePresenter {
         view.Validate();
     }
 
-    public void addCourses() {
-        view.AddCourses();
-    }
 
 }
