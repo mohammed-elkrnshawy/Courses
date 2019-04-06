@@ -1,6 +1,7 @@
 package s.panorama.graduationproject.ProfilePackage;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 import s.panorama.graduationproject.Activity.ForgetActivity;
+import s.panorama.graduationproject.Activity.HomeActivity;
 import s.panorama.graduationproject.Activity.LoginActivity;
 import s.panorama.graduationproject.Activity.RegisterActivity;
 import s.panorama.graduationproject.Models.UserObjectClass;
@@ -33,7 +35,7 @@ public class ProfileFragment extends Fragment implements ProfileInterface {
     private View view;
     private UserObjectClass userObjectClass;
     private ProfilePresenter profilePresenter;
-
+    private final int editInteger=0;
 
     @BindView(R.id.imgEdit)
     ImageView imgEdit;
@@ -80,7 +82,7 @@ public class ProfileFragment extends Fragment implements ProfileInterface {
             case R.id.imgEdit:
                 Intent intent=new Intent(getContext(),EditProfileActivity.class);
                 intent.putExtra("userData",userObjectClass);
-                startActivity(intent);
+                startActivityForResult(intent,editInteger);
                 break;
         }
     }
@@ -94,5 +96,15 @@ public class ProfileFragment extends Fragment implements ProfileInterface {
         txtBio.setText(userObjectClass.getBio());
         txtFollower.setText(userObjectClass.getFollower()+" "+getContext().getString(R.string.followers));
         txtFollowing.setText(userObjectClass.getFollowing()+" "+getContext().getString(R.string.following));
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode== Activity.RESULT_OK&&requestCode==editInteger){
+            userObjectClass=(UserObjectClass)data.getSerializableExtra("userData");
+            profilePresenter.viewData();
+            HomeActivity.setData(userObjectClass);
+        }
     }
 }

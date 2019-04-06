@@ -35,9 +35,9 @@ public class HomeActivity extends AppCompatActivity {
     private Bundle bundleFragments;
     private View header;
     private LinearLayout PersonalPage,Following,Joining,About,Logout;
-    private TextView userName;
-    private ImageView personPhoto;
-    private UserObjectClass userObject;
+    private static TextView userName;
+    private static ImageView personPhoto;
+    private static UserObjectClass userObject;
 
 
     @BindView(R.id.toolbar)
@@ -72,9 +72,10 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-    private void setData(UserObjectClass userObject) {
-        userName.setText(userObject.getUsername());
-        ImageLoader.getInstance().displayImage(userObject.getPersonalPhoto(),personPhoto);
+    public static void setData(UserObjectClass userObject2) {
+        userObject=userObject2;
+        userName.setText(userObject2.getUsername());
+        ImageLoader.getInstance().displayImage(userObject2.getPersonalPhoto(),personPhoto);
     }
 
     private void InitComponents() {
