@@ -140,6 +140,7 @@ public class AddCourseActivity extends AppCompatActivity implements AddCourseInt
         }
 
 
+
         addCourseClass.setInstructorName(instructorName.getText().toString().trim());
         addCourseClass.setCourseTitle(edtTitle.getText().toString().trim());
         addCourseClass.setCourseDesc(edtdesc.getText().toString().trim());
@@ -160,10 +161,11 @@ public class AddCourseActivity extends AppCompatActivity implements AddCourseInt
 
         String userId = mDatabase.push().getKey();
 
-        addCourseClass=new AddCourseClass(instructorName.getText().toString(),edtTitle.getText().toString(),edtdesc.getText().toString(),edtPrice.getText().toString(),edtLocation.getText().toString(),edtAdress.getText().toString(),edtstart.getText().toString(),edtend.getText().toString(),edtattendence.getText().toString(),edtcurrent.getText()
-        .toString());
+        addCourseClass = new AddCourseClass(instructorName.getText().toString(), edtTitle.getText().toString(), edtdesc.getText().toString(), edtPrice.getText().toString(), edtLocation.getText().toString(), edtAdress.getText().toString(), edtstart.getText().toString(), edtend.getText().toString(), edtattendence.getText().toString(), edtcurrent.getText()
+                .toString());
 
         mDatabase.push().setValue(addCourseClass);
 
     }
+
 }

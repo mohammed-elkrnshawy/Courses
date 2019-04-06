@@ -35,9 +35,9 @@ public class HomeActivity extends AppCompatActivity {
     private Bundle bundleFragments;
     private View header;
     private LinearLayout PersonalPage,Following,Joining,About,Logout;
-    private TextView userName;
-    private ImageView personPhoto;
-    private UserObjectClass userObject;
+    private static TextView userName;
+    private static ImageView personPhoto;
+    private static UserObjectClass userObject;
 
 
     @BindView(R.id.toolbar)
@@ -67,12 +67,12 @@ public class HomeActivity extends AppCompatActivity {
         Bundle bundle=getIntent().getExtras();
         if (!bundle.isEmpty()) {
             userObject=(UserObjectClass) bundle.get("userData");
-            bundleFragments.putSerializable("userData",userObject);
             setData(userObject);
         }
     }
 
-    private void setData(UserObjectClass userObject) {
+    public static void setData(UserObjectClass userObject2) {
+        userObject=userObject2;
         userName.setText(userObject.getUsername());
         ImageLoader.getInstance().displayImage(userObject.getPersonalPhoto(),personPhoto);
     }
@@ -104,6 +104,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void setFragment(Fragment fragment, String Title) {
+        bundleFragments.putSerializable("userData",userObject);
         fragment.setArguments(bundleFragments);
         getSupportFragmentManager().beginTransaction().replace(R.id.home_container, fragment).addToBackStack(Title)
                 .commitAllowingStateLoss();
