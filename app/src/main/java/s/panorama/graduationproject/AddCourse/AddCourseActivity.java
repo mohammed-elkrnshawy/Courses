@@ -1,21 +1,24 @@
 package s.panorama.graduationproject.AddCourse;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import s.panorama.graduationproject.Classes.CameraFirebase;
 import s.panorama.graduationproject.R;
 
 public class AddCourseActivity extends AppCompatActivity implements AddCourseInterface {
@@ -54,8 +57,13 @@ public class AddCourseActivity extends AppCompatActivity implements AddCourseInt
     Button btncancelJoin;
 
 
+    private CameraFirebase cameraFirebase;
     private AddCourseClass addCourseClass;
     private AddCoursePresenter addCoursePresenter;
+    private Uri userUriFilePath;
+    private Uri courseUriFilePath;
+    private boolean photoChanged = false;
+    private boolean isUserImage = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,9 +75,9 @@ public class AddCourseActivity extends AppCompatActivity implements AddCourseInt
     }
 
     private void initComponents() {
+        cameraFirebase = new CameraFirebase(this);
         addCourseClass = new AddCourseClass();
         addCoursePresenter = new AddCoursePresenter(this);
-        addCoursePresenter.validate();
     }
 
 
@@ -140,7 +148,6 @@ public class AddCourseActivity extends AppCompatActivity implements AddCourseInt
         }
 
 
-
         addCourseClass.setInstructorName(instructorName.getText().toString().trim());
         addCourseClass.setCourseTitle(edtTitle.getText().toString().trim());
         addCourseClass.setCourseDesc(edtdesc.getText().toString().trim());
@@ -151,21 +158,45 @@ public class AddCourseActivity extends AppCompatActivity implements AddCourseInt
         addCourseClass.setCourseEnd(edtend.getText().toString().trim());
         addCourseClass.setCurrentAttendence(edtcurrent.getText().toString().trim());
         addCourseClass.setNumOfAttendence(edtattendence.getText().toString().trim());
+        addCourseClass.setInstructorImage(addCourseClass.getInstructorImage());
+        addCourseClass.setCourseImage(addCourseClass.getCourseImage());
+        addCoursePresenter.uploadPhoto(userUriFilePath,addCourseClass, true);
+        addCoursePresenter.uploadPhoto(courseUriFilePath,addCourseClass, false);
+    }
 
+    @Override
+    public void finishActivity() {
+        Intent intent=getIntent();
+        finish();
 
     }
 
-    @OnClick(R.id.btncancelJoin)
-    public void onClick() {
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Courses");
-
-        String userId = mDatabase.push().getKey();
-
-        addCourseClass = new AddCourseClass(instructorName.getText().toString(), edtTitle.getText().toString(), edtdesc.getText().toString(), edtPrice.getText().toString(), edtLocation.getText().toString(), edtAdress.getText().toString(), edtstart.getText().toString(), edtend.getText().toString(), edtattendence.getText().toString(), edtcurrent.getText()
-                .toString());
-
-        mDatabase.push().setValue(addCourseClass);
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (isUserImage)
+            userUriFilePath = cameraFirebase.onResult(requestCode, userImage, data);
+        else
+            courseUriFilePath = cameraFirebase.onResult(requestCode, image, data);
     }
+
+    @OnClick({R.id.userImage, R.id.image, R.id.btncancelJoin})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.userImage:
+                isUserImage = true;
+                cameraFirebase.SelectPhotoDialog();
+                break;
+            case R.id.image:
+                isUserImage = false;
+                cameraFirebase.SelectPhotoDialog();
+                break;
+            case R.id.btncancelJoin:
+                addCoursePresenter.validate();
+                break;
+        }
+    }
+
+
 
 }
