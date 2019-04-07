@@ -23,7 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import s.panorama.graduationproject.Fragment.AboutFragment;
 import s.panorama.graduationproject.Fragment.FollowingFragment;
-import s.panorama.graduationproject.Fragment.HomeFragment;
+import s.panorama.graduationproject.AddCourse.HomeFragment;
 import s.panorama.graduationproject.Fragment.JoiningFragment;
 import s.panorama.graduationproject.Fragment.NotificationFragment;
 import s.panorama.graduationproject.ProfilePackage.ProfileFragment;

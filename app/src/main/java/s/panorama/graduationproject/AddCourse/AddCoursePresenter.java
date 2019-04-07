@@ -75,6 +75,10 @@ public class AddCoursePresenter {
                         }
                     });
         }
+    else {
+        saveDatabase(userObject);
+    }
+
     }
 
     private void saveDatabase(AddCourseClass objectClass) {
