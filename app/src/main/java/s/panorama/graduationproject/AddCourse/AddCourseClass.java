@@ -3,9 +3,9 @@ package s.panorama.graduationproject.AddCourse;
 import java.io.Serializable;
 
 public class AddCourseClass implements Serializable {
-    private String CID;
-    private String InstructorName;
-    private String InstructorImage;
+    private String UID;
+    private String PersonalPhoto;
+    private String Username;
     private String CourseImage;
     private String CourseTitle;
     private String CourseDesc;
@@ -17,17 +17,20 @@ public class AddCourseClass implements Serializable {
     private String NumOfAttendence;
     private String currentAttendence;
 
-    public AddCourseClass(String instructorName, String courseTitle, String courseDesc, String coursePrice, String courseLocation, String courseAddress, String courseStart, String courseEnd, String numOfAttendence, String currentAttendence) {
-        InstructorName = instructorName;
-        CourseTitle = courseTitle;
-        CourseDesc = courseDesc;
-        CoursePrice = coursePrice;
-        CourseLocation = courseLocation;
-        CourseAddress = courseAddress;
-        CourseStart = courseStart;
-        CourseEnd = courseEnd;
-        NumOfAttendence = numOfAttendence;
-        this.currentAttendence = currentAttendence;
+    public String getPersonalPhoto() {
+        return PersonalPhoto;
+    }
+
+    public void setPersonalPhoto(String personalPhoto) {
+        PersonalPhoto = personalPhoto;
+    }
+
+    public String getUsername() {
+        return Username;
+    }
+
+    public void setUsername(String username) {
+        Username = username;
     }
 
     public AddCourseClass()
@@ -35,29 +38,12 @@ public class AddCourseClass implements Serializable {
 
     }
 
-
-    public String getCID() {
-        return CID;
+    public String getUID() {
+        return UID;
     }
 
-    public void setCID(String CID) {
-        this.CID = CID;
-    }
-
-    public String getInstructorName() {
-        return InstructorName;
-    }
-
-    public void setInstructorName(String instructorName) {
-        InstructorName = instructorName;
-    }
-
-    public String getInstructorImage() {
-        return InstructorImage;
-    }
-
-    public void setInstructorImage(String instructorImage) {
-        InstructorImage = instructorImage;
+    public void setUID(String UID) {
+        this.UID = UID;
     }
 
     public String getCourseImage() {

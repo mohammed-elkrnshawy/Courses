@@ -24,7 +24,9 @@ import s.panorama.graduationproject.Models.UserObjectClass;
 public class AddCoursePresenter {
     private Dialog progressDialog;
     private AddCourseActivity view;
-    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    private FirebaseDatabase firebasedatabase;
+    FirebaseDatabase database;
+    DatabaseReference myRef;
     private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
 
     public AddCoursePresenter(AddCourseActivity view) {
@@ -37,7 +39,7 @@ public class AddCoursePresenter {
         view.Validate();
     }
 
-    public void uploadPhoto(final Uri filePath, final AddCourseClass userObject, final boolean isUserImage) {
+    public void uploadPhoto(final Uri filePath, final AddCourseClass userObject) {
         progressDialog.show();
         if (filePath != null) {
             final StorageReference ref = storageReference.child("images/" + UUID.randomUUID().toString());
@@ -56,14 +58,14 @@ public class AddCoursePresenter {
                         public void onComplete(@NonNull Task<Uri> task) {
                             if (task.isSuccessful()) {
                                 Uri taskResult = task.getResult();
-                                if (isUserImage)
-                                    userObject.setInstructorImage(taskResult.toString());
-                                else
+                            /*    if (isUserImage)
+                                    userObject.setPersonalPhoto(taskResult.toString());
+                                else*/
                                     userObject.setCourseImage(taskResult.toString());
 
                                 saveDatabase(userObject);
                             } else {
-                                uploadPhoto(filePath, userObject, isUserImage);
+                                uploadPhoto(filePath, userObject);
                             }
                         }
                     })
@@ -82,8 +84,27 @@ public class AddCoursePresenter {
     }
 
     private void saveDatabase(AddCourseClass objectClass) {
-        if (objectClass.getCourseImage() != null && objectClass.getInstructorImage() != null)
-            mDatabase.child(Constant.rootCourses).push().setValue(objectClass)
+     //if (objectClass.getCourseImage() != null && objectClass.getPersonalPhoto() != null)
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("Courses");
+        String key =myRef.push().getKey();
+
+        myRef.child(key).setValue(objectClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                progressDialog.dismiss();
+                if (task.isSuccessful()) {
+                    view.finishActivity();
+                } else {
+
+                }
+            }
+        });
+
+
+
+  /*      if (objectClass.getCourseImage() != null && objectClass.getInstructorImage() != null)
+    mDatabase.child("Courses").push().setValue(objectClass)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -94,8 +115,11 @@ public class AddCoursePresenter {
 
                             }
                         }
-                    });
+                    });*/
     }
+
+
+
 
 
 }

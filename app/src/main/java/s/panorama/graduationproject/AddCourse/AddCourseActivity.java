@@ -19,6 +19,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 import s.panorama.graduationproject.Classes.CameraFirebase;
+import s.panorama.graduationproject.Models.UserObjectClass;
 import s.panorama.graduationproject.R;
 
 public class AddCourseActivity extends AppCompatActivity implements AddCourseInterface {
@@ -64,6 +65,8 @@ public class AddCourseActivity extends AppCompatActivity implements AddCourseInt
     private Uri courseUriFilePath;
     private boolean photoChanged = false;
     private boolean isUserImage = true;
+    private UserObjectClass userObjectClass;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,18 +80,24 @@ public class AddCourseActivity extends AppCompatActivity implements AddCourseInt
     private void initComponents() {
         cameraFirebase = new CameraFirebase(this);
         addCourseClass = new AddCourseClass();
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            userObjectClass = (UserObjectClass) extras.getSerializable("userData");
+        }
         addCoursePresenter = new AddCoursePresenter(this);
+        
     }
 
 
     @Override
     public void Validate() {
 
-        if (TextUtils.isEmpty(instructorName.getText())) {
+     /*   if (TextUtils.isEmpty(instructorName.getText())) {
             instructorName.setError(getResources().getString(R.string.requiredField));
             instructorName.requestFocus();
             return;
-        }
+        }*/
 
 
         if (TextUtils.isEmpty(edtTitle.getText())) {
@@ -148,7 +157,8 @@ public class AddCourseActivity extends AppCompatActivity implements AddCourseInt
         }
 
 
-        addCourseClass.setInstructorName(instructorName.getText().toString().trim());
+        addCourseClass.setUID(userObjectClass.getUID());
+        addCourseClass.setUsername(userObjectClass.getUsername());
         addCourseClass.setCourseTitle(edtTitle.getText().toString().trim());
         addCourseClass.setCourseDesc(edtdesc.getText().toString().trim());
         addCourseClass.setCourseLocation(edtLocation.getText().toString().trim());
@@ -158,17 +168,14 @@ public class AddCourseActivity extends AppCompatActivity implements AddCourseInt
         addCourseClass.setCourseEnd(edtend.getText().toString().trim());
         addCourseClass.setCurrentAttendence(edtcurrent.getText().toString().trim());
         addCourseClass.setNumOfAttendence(edtattendence.getText().toString().trim());
-        addCourseClass.setInstructorImage(addCourseClass.getInstructorImage());
+        addCourseClass.setPersonalPhoto(userObjectClass.getPersonalPhoto());
         addCourseClass.setCourseImage(addCourseClass.getCourseImage());
-        addCoursePresenter.uploadPhoto(userUriFilePath,addCourseClass, true);
-        addCoursePresenter.uploadPhoto(courseUriFilePath,addCourseClass, false);
+        addCoursePresenter.uploadPhoto(courseUriFilePath,addCourseClass);
     }
 
     @Override
     public void finishActivity() {
-        Intent intent=getIntent();
         finish();
-
     }
 
     @Override
@@ -184,8 +191,8 @@ public class AddCourseActivity extends AppCompatActivity implements AddCourseInt
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.userImage:
-                isUserImage = true;
-                cameraFirebase.SelectPhotoDialog();
+              /*  isUserImage = true;
+                cameraFirebase.SelectPhotoDialog();*/
                 break;
             case R.id.image:
                 isUserImage = false;

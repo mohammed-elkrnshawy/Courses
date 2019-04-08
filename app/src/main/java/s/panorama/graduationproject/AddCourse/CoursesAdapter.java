@@ -36,11 +36,11 @@ public class CoursesAdapter extends RecyclerView.Adapter<CoursesAdapter.MyHolder
     @Override
     public void onBindViewHolder(MyHolder holder, int position) {
         AddCourseClass data = listdata.get(position);
-        holder.istructorName.setText(data.getInstructorName());
+        holder.istructorName.setText(data.getUsername());
         holder.CourseName.setText(data.getCourseTitle());
         holder.CourseDesc.setText(data.getCourseDesc());
         ImageLoader.getInstance().displayImage(data.getCourseImage(),holder.CourseImage);
-        ImageLoader.getInstance().displayImage(data.getInstructorImage(),holder.InstructorImage);
+        ImageLoader.getInstance().displayImage(data.getPersonalPhoto(),holder.InstructorImage);
 
     }
 
