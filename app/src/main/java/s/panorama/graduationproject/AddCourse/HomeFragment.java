@@ -110,8 +110,10 @@ public class HomeFragment extends Fragment implements CoursesInterface {
                         MessageClassObject=issue.getValue(AddCourseClass.class);
                         list.add(MessageClassObject);
                     }
+
                     coursesAdapter.notifyDataSetChanged();
-                } else {
+                }
+                else {
                     Toast.makeText(getContext(), "Not Courses in this Category", Toast.LENGTH_LONG).show();
                 }
             }

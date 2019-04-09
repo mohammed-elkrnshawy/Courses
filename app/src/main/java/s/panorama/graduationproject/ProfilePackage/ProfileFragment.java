@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,19 +14,25 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.nostra13.universalimageloader.core.ImageLoader;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
-import s.panorama.graduationproject.Activity.ForgetActivity;
 import s.panorama.graduationproject.Activity.HomeActivity;
-import s.panorama.graduationproject.Activity.LoginActivity;
-import s.panorama.graduationproject.Activity.RegisterActivity;
+import s.panorama.graduationproject.AddCourse.AddCourseClass;
+import s.panorama.graduationproject.AddCourse.CoursesAdapter;
 import s.panorama.graduationproject.Models.UserObjectClass;
-import s.panorama.graduationproject.ProfilePackage.ProfileInterface;
-import s.panorama.graduationproject.ProfilePackage.ProfilePresenter;
 import s.panorama.graduationproject.R;
 
 /**
@@ -32,10 +40,16 @@ import s.panorama.graduationproject.R;
  */
 public class ProfileFragment extends Fragment implements ProfileInterface {
 
+    @BindView(R.id.posts)
+    RecyclerView posts;
     private View view;
     private UserObjectClass userObjectClass;
     private ProfilePresenter profilePresenter;
-    private final int editInteger=0;
+    private CoursesAdapter coursesAdapter;
+    List<AddCourseClass> list;
+    private AddCourseClass MessageClassObject;
+
+    private final int editInteger = 0;
 
     @BindView(R.id.imgEdit)
     ImageView imgEdit;
@@ -62,26 +76,63 @@ public class ProfileFragment extends Fragment implements ProfileInterface {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view =inflater.inflate(R.layout.fragment_personal_page, container, false);
-        ButterKnife.bind(this,view);
+        view = inflater.inflate(R.layout.fragment_personal_page, container, false);
+        ButterKnife.bind(this, view);
         getIntentData();
-
-
+        showResponse();
         return view;
     }
 
+    private void showResponse() {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        list.clear();
+        Query query = reference.child("Courses");
+        RecyclerView.LayoutManager layoutmanager = new LinearLayoutManager(getContext());
+        posts.setLayoutManager(layoutmanager);
+        coursesAdapter = new CoursesAdapter(list,getContext());
+        posts.setAdapter(coursesAdapter);
+
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot issue : dataSnapshot.getChildren()) {
+
+                        if (issue.child("uid").getValue().equals(userObjectClass.getUID())) {
+                            MessageClassObject = issue.getValue(AddCourseClass.class);
+                            list.add(MessageClassObject);
+
+                        }
+
+
+                    }
+                    coursesAdapter.notifyDataSetChanged();
+                }
+                else {
+                    Toast.makeText(getContext(), "Not Courses in this Category", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+
     private void getIntentData() {
-        profilePresenter=new ProfilePresenter(this);
+        list = new ArrayList<>();
+        profilePresenter = new ProfilePresenter(this);
         userObjectClass = (UserObjectClass) getArguments().getSerializable("userData");
         profilePresenter.viewData();
     }
 
-    @OnClick({R.id.imgEdit}) void onButtonClick (View view) {
+    @OnClick({R.id.imgEdit})
+    void onButtonClick(View view) {
         switch (view.getId()) {
             case R.id.imgEdit:
-                Intent intent=new Intent(getContext(),EditProfileActivity.class);
-                intent.putExtra("userData",userObjectClass);
-                startActivityForResult(intent,editInteger);
+                Intent intent = new Intent(getContext(), EditProfileActivity.class);
+                intent.putExtra("userData", userObjectClass);
+                startActivityForResult(intent, editInteger);
                 break;
         }
     }
@@ -89,21 +140,26 @@ public class ProfileFragment extends Fragment implements ProfileInterface {
 
     @Override
     public void setDataToView() {
-        ImageLoader.getInstance().displayImage(userObjectClass.getPersonalPhoto(),userImage);
+        ImageLoader.getInstance().displayImage(userObjectClass.getPersonalPhoto(), userImage);
         txtUsername.setText(userObjectClass.getUsername());
         txtPhone.setText(userObjectClass.getPhone());
         txtBio.setText(userObjectClass.getBio());
-        txtFollower.setText(userObjectClass.getFollower()+" "+getContext().getString(R.string.followers));
-        txtFollowing.setText(userObjectClass.getFollowing()+" "+getContext().getString(R.string.following));
+        txtFollower.setText(userObjectClass.getFollower() + " " + getContext().getString(R.string.followers));
+        txtFollowing.setText(userObjectClass.getFollowing() + " " + getContext().getString(R.string.following));
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode== Activity.RESULT_OK&&requestCode==editInteger){
-            userObjectClass=(UserObjectClass)data.getSerializableExtra("userData");
+        if (resultCode == Activity.RESULT_OK && requestCode == editInteger) {
+            userObjectClass = (UserObjectClass) data.getSerializableExtra("userData");
             profilePresenter.viewData();
             HomeActivity.setData(userObjectClass);
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
     }
 }
