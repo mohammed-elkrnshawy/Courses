@@ -8,7 +8,6 @@
     <string name="following">Following</string>
     <string name="joining">Joining</string>
     <string name="about">About Us</string>
-    <string name="logout">Logout</string>
     <string name="see"><![CDATA[See More>>]]></string>
     <string name="email">E-mail</string>
     <string name="password">Password</string>
@@ -17,6 +16,7 @@
     <string name="register_now"><u>Register Now</u>></string>
     <string name="forget_password">Forget password ?</string>
     <string name="instructor">Instructor</string>
+    <string name="select_time">Select Time</string>
     <string name="title">Title</string>
     <string name="desc">Descreption</string>
     <string name="price">Price</string>
@@ -25,6 +25,12 @@
     <string name="duration">Duration</string>
     <string name="start">Start</string>
     <string name="end">End</string>
+    <string name="open_gps">Open GPS</string>
+    <string name="get_location">Select Location</string>
+    <string name="please_open_gps">Open GPS</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="no_detected_address">No Detected Address</string>
     <string name="max">Max Of Attendence</string>
     <string name="current">Current Attend</string>
     <string name="cancel">Cancel</string>
@@ -50,4 +56,5 @@
     <string name="pleaseEnterBio">Please Enter Bio</string>
     <string name="followers">Follower</string>
     <string name="save">Save</string>
+    <string name="logout">Logout</string>
 </resources>

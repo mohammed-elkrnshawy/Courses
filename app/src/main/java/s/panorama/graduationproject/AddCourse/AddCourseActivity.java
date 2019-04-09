@@ -1,6 +1,6 @@
 package s.panorama.graduationproject.AddCourse;
 
-import android.app.Activity;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,28 +12,31 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.TextView;
+import android.widget.TimePicker;
+
+import java.text.NumberFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import de.hdodenhof.circleimageview.CircleImageView;
 import s.panorama.graduationproject.Classes.CameraFirebase;
 import s.panorama.graduationproject.Models.UserObjectClass;
 import s.panorama.graduationproject.R;
 
 public class AddCourseActivity extends AppCompatActivity implements AddCourseInterface {
 
-    @BindView(R.id.userImage)
-    CircleImageView userImage;
-    @BindView(R.id.userName)
-    TextView userName;
+    /*   @BindView(R.id.userImage)
+        CircleImageView userImage;
+        @BindView(R.id.userName)
+        TextView userName;*/
     @BindView(R.id.image)
     ImageView image;
     @BindView(R.id.radio)
     RadioButton radio;
-    @BindView(R.id.instructorName)
-    EditText instructorName;
+    /*  @BindView(R.id.instructorName)
+      EditText instructorName;*/
     @BindView(R.id.edtTitle)
     EditText edtTitle;
     @BindView(R.id.edtdesc)
@@ -66,6 +69,11 @@ public class AddCourseActivity extends AppCompatActivity implements AddCourseInt
     private boolean photoChanged = false;
     private boolean isUserImage = true;
     private UserObjectClass userObjectClass;
+    private String hours,minuts;
+    public String TimeFrom;
+    private String address;
+    private double lat , lon ;
+
 
 
     @Override
@@ -80,13 +88,109 @@ public class AddCourseActivity extends AppCompatActivity implements AddCourseInt
     private void initComponents() {
         cameraFirebase = new CameraFirebase(this);
         addCourseClass = new AddCourseClass();
-
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             userObjectClass = (UserObjectClass) extras.getSerializable("userData");
         }
         addCoursePresenter = new AddCoursePresenter(this);
-        
+
+        edtstart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(AddCourseActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        TimeFrom = edtstart.getText().toString().trim();
+                        NumberFormat nf = NumberFormat.getInstance(new Locale("en","US")); //or "nb","No" - for Norway
+                        int sDistance =Integer.parseInt( nf.format(selectedHour));
+                        int Distance = Integer.parseInt(nf.format(selectedMinute));
+
+                        if(sDistance< 10)
+                        {
+                            hours="0"+sDistance;
+
+                        }
+                        else {
+                            hours=sDistance+"";
+                        }
+                        if(Distance< 10)
+                        {
+                            minuts="0"+Distance;
+
+                        }
+                        else {
+                            minuts=Distance+"";
+                        }
+
+                        edtstart.setText(hours+":"+minuts);
+
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.setTitle(getString(R.string.select_time));
+                mTimePicker.show();
+
+            }
+        });
+
+        edtend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Calendar currentTime = Calendar.getInstance();
+                int Hour = currentTime.get(Calendar.HOUR_OF_DAY);
+                int Minute = currentTime.get(Calendar.MINUTE);
+                TimePickerDialog TimePicker;
+                TimePicker = new TimePickerDialog(AddCourseActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        NumberFormat nf = NumberFormat.getInstance(new Locale("en","US")); //or "nb","No" - for Norway
+                        int sDistance =Integer.parseInt( nf.format(selectedHour));
+                        int Distance = Integer.parseInt(nf.format(selectedMinute));
+                        if(sDistance< 10)
+                        {
+                            hours="0"+sDistance;
+
+                        }
+                        else {
+                            hours=sDistance+"";
+                        }
+                        if(Distance< 10)
+                        {
+                            minuts="0"+Distance;
+
+                        }
+                        else {
+                            minuts=Distance+"";
+                        }
+                        edtend.setText(hours+":"+minuts);
+                    }
+                }, Hour, Minute, true);//Yes 24 hour time
+                TimePicker.setTitle(getString(R.string.select_time));
+                TimePicker.show();
+
+            }
+        });
+
+        edtLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(new Intent(AddCourseActivity.this, MapsActivity.class), 1);
+            }
+        });
+        edtLocation.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus)
+                    startActivityForResult(new Intent(AddCourseActivity.this, MapsActivity.class), 1);
+            }
+        });
+
+
     }
 
 
@@ -170,7 +274,7 @@ public class AddCourseActivity extends AppCompatActivity implements AddCourseInt
         addCourseClass.setNumOfAttendence(edtattendence.getText().toString().trim());
         addCourseClass.setPersonalPhoto(userObjectClass.getPersonalPhoto());
         addCourseClass.setCourseImage(addCourseClass.getCourseImage());
-        addCoursePresenter.uploadPhoto(courseUriFilePath,addCourseClass);
+        addCoursePresenter.uploadPhoto(courseUriFilePath, addCourseClass);
     }
 
     @Override
@@ -181,19 +285,26 @@ public class AddCourseActivity extends AppCompatActivity implements AddCourseInt
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (isUserImage)
+     /*   if (isUserImage)
             userUriFilePath = cameraFirebase.onResult(requestCode, userImage, data);
-        else
-            courseUriFilePath = cameraFirebase.onResult(requestCode, image, data);
+        else*/
+        courseUriFilePath = cameraFirebase.onResult(requestCode, image, data);
+
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            lat = data.getDoubleExtra("lat",0);
+            lon = data.getDoubleExtra("lng",0);
+            address = data.getStringExtra("address");
+            edtLocation.setText(address);
+        }
     }
 
-    @OnClick({R.id.userImage, R.id.image, R.id.btncancelJoin})
+    @OnClick({/*R.id.userImage,*/ R.id.image, R.id.btncancelJoin})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.userImage:
-              /*  isUserImage = true;
-                cameraFirebase.SelectPhotoDialog();*/
-                break;
+        /*    case R.id.userImage:
+                isUserImage = true;
+                cameraFirebase.SelectPhotoDialog();
+                break;*/
             case R.id.image:
                 isUserImage = false;
                 cameraFirebase.SelectPhotoDialog();
@@ -203,7 +314,6 @@ public class AddCourseActivity extends AppCompatActivity implements AddCourseInt
                 break;
         }
     }
-
 
 
 }
