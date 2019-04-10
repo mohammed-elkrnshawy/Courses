@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import java.text.NumberFormat;
@@ -22,6 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import s.panorama.graduationproject.Classes.CameraFirebase;
+import s.panorama.graduationproject.Classes.Constant;
 import s.panorama.graduationproject.Models.UserObjectClass;
 import s.panorama.graduationproject.R;
 
@@ -44,7 +46,7 @@ public class AddCourseActivity extends AppCompatActivity implements AddCourseInt
     @BindView(R.id.edtPrice)
     EditText edtPrice;
     @BindView(R.id.edtLocation)
-    EditText edtLocation;
+    TextView edtLocation;
     @BindView(R.id.edtAdress)
     EditText edtAdress;
     @BindView(R.id.edtstart)
@@ -64,10 +66,7 @@ public class AddCourseActivity extends AppCompatActivity implements AddCourseInt
     private CameraFirebase cameraFirebase;
     private AddCourseClass addCourseClass;
     private AddCoursePresenter addCoursePresenter;
-    private Uri userUriFilePath;
     private Uri courseUriFilePath;
-    private boolean photoChanged = false;
-    private boolean isUserImage = true;
     private UserObjectClass userObjectClass;
     private String hours,minuts;
     public String TimeFrom;
@@ -81,17 +80,21 @@ public class AddCourseActivity extends AppCompatActivity implements AddCourseInt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_see_more);
         ButterKnife.bind(this);
+        getIntentData();
         initComponents();
 
+    }
+
+    private void getIntentData() {
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            userObjectClass = (UserObjectClass) extras.getSerializable("userData");
+        }
     }
 
     private void initComponents() {
         cameraFirebase = new CameraFirebase(this);
         addCourseClass = new AddCourseClass();
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            userObjectClass = (UserObjectClass) extras.getSerializable("userData");
-        }
         addCoursePresenter = new AddCoursePresenter(this);
 
         edtstart.setOnClickListener(new View.OnClickListener() {
@@ -176,33 +179,12 @@ public class AddCourseActivity extends AppCompatActivity implements AddCourseInt
             }
         });
 
-        edtLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivityForResult(new Intent(AddCourseActivity.this, MapsActivity.class), 1);
-            }
-        });
-        edtLocation.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus)
-                    startActivityForResult(new Intent(AddCourseActivity.this, MapsActivity.class), 1);
-            }
-        });
-
 
     }
 
 
     @Override
     public void Validate() {
-
-     /*   if (TextUtils.isEmpty(instructorName.getText())) {
-            instructorName.setError(getResources().getString(R.string.requiredField));
-            instructorName.requestFocus();
-            return;
-        }*/
-
 
         if (TextUtils.isEmpty(edtTitle.getText())) {
             edtTitle.setError(getResources().getString(R.string.requiredField));
@@ -274,23 +256,18 @@ public class AddCourseActivity extends AppCompatActivity implements AddCourseInt
         addCourseClass.setNumOfAttendence(edtattendence.getText().toString().trim());
         addCourseClass.setPersonalPhoto(userObjectClass.getPersonalPhoto());
         addCourseClass.setCourseImage(addCourseClass.getCourseImage());
-        addCoursePresenter.uploadPhoto(courseUriFilePath, addCourseClass);
-    }
 
-    @Override
-    public void finishActivity() {
-        finish();
+
+        addCoursePresenter.uploadPhoto(courseUriFilePath, addCourseClass);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-     /*   if (isUserImage)
-            userUriFilePath = cameraFirebase.onResult(requestCode, userImage, data);
-        else*/
+
         courseUriFilePath = cameraFirebase.onResult(requestCode, image, data);
 
-        if (requestCode == 1 && resultCode == RESULT_OK) {
+        if (requestCode == Constant.Map && resultCode == RESULT_OK) {
             lat = data.getDoubleExtra("lat",0);
             lon = data.getDoubleExtra("lng",0);
             address = data.getStringExtra("address");
@@ -298,19 +275,17 @@ public class AddCourseActivity extends AppCompatActivity implements AddCourseInt
         }
     }
 
-    @OnClick({/*R.id.userImage,*/ R.id.image, R.id.btncancelJoin})
+    @OnClick({ R.id.image, R.id.btncancelJoin,R.id.edtLocation})
     public void onClick(View view) {
         switch (view.getId()) {
-        /*    case R.id.userImage:
-                isUserImage = true;
-                cameraFirebase.SelectPhotoDialog();
-                break;*/
             case R.id.image:
-                isUserImage = false;
                 cameraFirebase.SelectPhotoDialog();
                 break;
             case R.id.btncancelJoin:
                 addCoursePresenter.validate();
+                break;
+                case R.id.edtLocation:
+                    startActivityForResult(new Intent(AddCourseActivity.this, MapsActivity.class), Constant.Map);
                 break;
         }
     }

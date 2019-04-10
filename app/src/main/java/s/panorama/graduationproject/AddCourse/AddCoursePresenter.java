@@ -25,14 +25,13 @@ public class AddCoursePresenter {
     private Dialog progressDialog;
     private AddCourseActivity view;
     private FirebaseDatabase firebasedatabase;
-    FirebaseDatabase database;
-    DatabaseReference myRef;
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
     private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
 
     public AddCoursePresenter(AddCourseActivity view) {
         this.view = view;
         progressDialog = SharedUtils.ShowWaiting(view, progressDialog);
-
     }
 
     public void validate() {
@@ -58,11 +57,7 @@ public class AddCoursePresenter {
                         public void onComplete(@NonNull Task<Uri> task) {
                             if (task.isSuccessful()) {
                                 Uri taskResult = task.getResult();
-                            /*    if (isUserImage)
-                                    userObject.setPersonalPhoto(taskResult.toString());
-                                else*/
-                                    userObject.setCourseImage(taskResult.toString());
-
+                                userObject.setCourseImage(taskResult.toString());
                                 saveDatabase(userObject);
                             } else {
                                 uploadPhoto(filePath, userObject);
@@ -76,15 +71,12 @@ public class AddCoursePresenter {
                             Toast.makeText(view, "Fail", Toast.LENGTH_SHORT).show();
                         }
                     });
+        } else {
+            saveDatabase(userObject);
         }
-    else {
-        saveDatabase(userObject);
-    }
-
     }
 
     private void saveDatabase(AddCourseClass objectClass) {
-     //if (objectClass.getCourseImage() != null && objectClass.getPersonalPhoto() != null)
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("Courses");
         String key =myRef.push().getKey();
@@ -94,28 +86,12 @@ public class AddCoursePresenter {
             public void onComplete(@NonNull Task<Void> task) {
                 progressDialog.dismiss();
                 if (task.isSuccessful()) {
-                    view.finishActivity();
-                } else {
-
+                    view.finish();
                 }
             }
         });
 
 
-
-  /*      if (objectClass.getCourseImage() != null && objectClass.getInstructorImage() != null)
-    mDatabase.child("Courses").push().setValue(objectClass)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            progressDialog.dismiss();
-                            if (task.isSuccessful()) {
-                                view.finishActivity();
-                            } else {
-
-                            }
-                        }
-                    });*/
     }
 
 

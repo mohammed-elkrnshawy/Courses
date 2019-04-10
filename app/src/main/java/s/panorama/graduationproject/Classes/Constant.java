@@ -5,4 +5,5 @@ public class Constant {
     public static String rootCourses="Courses";
     public static int Camera=98;
     public static int Gallery=99;
+    public static int Map=95;
 }
