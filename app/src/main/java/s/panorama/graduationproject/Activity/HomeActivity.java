@@ -109,7 +109,6 @@ public class HomeActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.home_container, fragment).addToBackStack(Title)
                 .commitAllowingStateLoss();
         drawerLayout.closeDrawers();
-
     }
 
     private void onClick() {
