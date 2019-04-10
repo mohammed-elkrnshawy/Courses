@@ -81,7 +81,8 @@ public class EditProfilePresenter {
                             Toast.makeText(view, "Fail", Toast.LENGTH_SHORT).show();
                         }
                     });
-        }else {
+        }
+        else {
             saveDatabase(userObject);
         }
     }

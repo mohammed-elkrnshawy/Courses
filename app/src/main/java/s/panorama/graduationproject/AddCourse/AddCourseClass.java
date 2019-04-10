@@ -3,9 +3,9 @@ package s.panorama.graduationproject.AddCourse;
 import java.io.Serializable;
 
 public class AddCourseClass implements Serializable {
-    private String CID;
-    private String InstructorName;
-    private String InstructorImage;
+    private String UID;
+    private String PersonalPhoto;
+    private String Username;
     private String CourseImage;
     private String CourseTitle;
     private String CourseDesc;
@@ -17,28 +17,33 @@ public class AddCourseClass implements Serializable {
     private String NumOfAttendence;
     private String currentAttendence;
 
-    public String getCID() {
-        return CID;
+    public String getPersonalPhoto() {
+        return PersonalPhoto;
     }
 
-    public void setCID(String CID) {
-        this.CID = CID;
+    public void setPersonalPhoto(String personalPhoto) {
+        PersonalPhoto = personalPhoto;
     }
 
-    public String getInstructorName() {
-        return InstructorName;
+    public String getUsername() {
+        return Username;
     }
 
-    public void setInstructorName(String instructorName) {
-        InstructorName = instructorName;
+    public void setUsername(String username) {
+        Username = username;
     }
 
-    public String getInstructorImage() {
-        return InstructorImage;
+    public AddCourseClass()
+    {
+
     }
 
-    public void setInstructorImage(String instructorImage) {
-        InstructorImage = instructorImage;
+    public String getUID() {
+        return UID;
+    }
+
+    public void setUID(String UID) {
+        this.UID = UID;
     }
 
     public String getCourseImage() {

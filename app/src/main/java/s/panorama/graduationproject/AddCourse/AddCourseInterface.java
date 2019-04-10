@@ -2,5 +2,5 @@ package s.panorama.graduationproject.AddCourse;
 
 public interface AddCourseInterface {
     void Validate();
-    void AddCourses();
+    void finishActivity();
 }
