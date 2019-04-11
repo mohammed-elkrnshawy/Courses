@@ -50,9 +50,9 @@ public class AddCourseActivity extends AppCompatActivity implements AddCourseInt
     @BindView(R.id.edtAdress)
     EditText edtAdress;
     @BindView(R.id.edtstart)
-    EditText edtstart;
+    TextView edtstart;
     @BindView(R.id.edtend)
-    EditText edtend;
+    TextView edtend;
     @BindView(R.id.edtattendence)
     EditText edtattendence;
     @BindView(R.id.edtcurrent)
