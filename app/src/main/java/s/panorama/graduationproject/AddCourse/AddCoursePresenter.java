@@ -80,6 +80,7 @@ public class AddCoursePresenter {
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("Courses");
         String key =myRef.push().getKey();
+        objectClass.setCourseID(key);
 
         myRef.child(key).setValue(objectClass).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

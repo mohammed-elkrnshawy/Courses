@@ -61,8 +61,8 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:src="@drawable/hour"
                 />
 
@@ -70,7 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="3 Days"
-                android:textSize="16dp"
+                android:textSize="12dp"
                 android:layout_marginStart="10dp"
                 android:layout_gravity="center"
                 />
@@ -79,7 +79,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16dp"
+                android:textSize="12dp"
                 android:text="@string/see"
                 android:id="@+id/seeMore"
                 android:layout_gravity="center"

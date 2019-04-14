@@ -57,8 +57,7 @@ public class AddCourseActivity extends AppCompatActivity implements AddCourseInt
     EditText edtattendence;
     @BindView(R.id.edtcurrent)
     EditText edtcurrent;
-    @BindView(R.id.btncancel)
-    Button btncancel;
+
     @BindView(R.id.btncancelJoin)
     Button btncancelJoin;
 
@@ -256,6 +255,7 @@ public class AddCourseActivity extends AppCompatActivity implements AddCourseInt
         addCourseClass.setNumOfAttendence(edtattendence.getText().toString().trim());
         addCourseClass.setPersonalPhoto(userObjectClass.getPersonalPhoto());
         addCourseClass.setCourseImage(addCourseClass.getCourseImage());
+
 
 
         addCoursePresenter.uploadPhoto(courseUriFilePath, addCourseClass);
