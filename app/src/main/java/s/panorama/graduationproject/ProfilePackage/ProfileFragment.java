@@ -79,7 +79,7 @@ public class ProfileFragment extends Fragment implements ProfileInterface {
         view = inflater.inflate(R.layout.fragment_personal_page, container, false);
         ButterKnife.bind(this, view);
         getIntentData();
-        showResponse();
+        //showResponse();
         return view;
     }
 
@@ -89,7 +89,7 @@ public class ProfileFragment extends Fragment implements ProfileInterface {
         Query query = reference.child("Courses");
         RecyclerView.LayoutManager layoutmanager = new LinearLayoutManager(getContext());
         posts.setLayoutManager(layoutmanager);
-        coursesAdapter = new CoursesAdapter(list,getContext());
+        coursesAdapter = new CoursesAdapter(list,getContext(),userObjectClass);
         posts.setAdapter(coursesAdapter);
 
         query.addValueEventListener(new ValueEventListener() {
@@ -101,9 +101,7 @@ public class ProfileFragment extends Fragment implements ProfileInterface {
                         if (issue.child("uid").getValue().equals(userObjectClass.getUID())) {
                             MessageClassObject = issue.getValue(AddCourseClass.class);
                             list.add(MessageClassObject);
-
                         }
-
 
                     }
                     coursesAdapter.notifyDataSetChanged();

@@ -28,6 +28,7 @@ public class CourseDetailsPresenter {
         this.view = view;
         progressDialog= SharedUtils.ShowWaiting(view,progressDialog);
     }
+
     public void viewData() {
         view.setDataToView();
     }

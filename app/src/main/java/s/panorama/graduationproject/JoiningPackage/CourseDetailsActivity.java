@@ -119,16 +119,20 @@ public class CourseDetailsActivity extends AppCompatActivity implements CourseDe
         edtcurrent.setText(addCourseClass.getCurrentAttendence());
         edtattendence.setText(addCourseClass.getNumOfAttendence());
         radio.setChecked(true);
-        if(addCourseClass.getUID().equals(userObjectClass.getUID()) == true){
-        joinCourse.setVisibility(View.GONE);
+
+        if(addCourseClass.getUID().equals(userObjectClass.getUID())){
+            joinCourse.setVisibility(View.GONE);
+            followCourse.setVisibility(View.GONE);
         }
 
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("Join");
-        rootRef.orderByChild("CourseID").equalTo(addCourseClass.getCourseID()).addListenerForSingleValueEvent(new ValueEventListener() {
+        rootRef.orderByChild("CourseID").equalTo(addCourseClass.getCourseID())
+                .addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot tasksSnapshot) {
                 for (DataSnapshot snapshot: tasksSnapshot.getChildren()) {
-                    if(snapshot.getRef().child("CourseID").equals(addCourseClass.getCourseID())&& snapshot.getRef().child("UserID").equals(userObjectClass.getUID()))
+                    if(snapshot.getRef().child("CourseID").equals(addCourseClass.getCourseID())
+                            && snapshot.getRef().child("UserID").equals(userObjectClass.getUID()))
                       joinCourse.setVisibility(View.GONE);
                 }
             }

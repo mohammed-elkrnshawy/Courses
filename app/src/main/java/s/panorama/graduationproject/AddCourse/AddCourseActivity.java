@@ -22,6 +22,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import s.panorama.graduationproject.Activity.MapsActivity;
 import s.panorama.graduationproject.Classes.CameraFirebase;
 import s.panorama.graduationproject.Classes.Constant;
 import s.panorama.graduationproject.Models.UserObjectClass;
@@ -29,16 +30,10 @@ import s.panorama.graduationproject.R;
 
 public class AddCourseActivity extends AppCompatActivity implements AddCourseInterface {
 
-    /*   @BindView(R.id.userImage)
-        CircleImageView userImage;
-        @BindView(R.id.userName)
-        TextView userName;*/
     @BindView(R.id.image)
     ImageView image;
     @BindView(R.id.radio)
     RadioButton radio;
-    /*  @BindView(R.id.instructorName)
-      EditText instructorName;*/
     @BindView(R.id.edtTitle)
     EditText edtTitle;
     @BindView(R.id.edtdesc)
@@ -58,9 +53,6 @@ public class AddCourseActivity extends AppCompatActivity implements AddCourseInt
     @BindView(R.id.edtcurrent)
     EditText edtcurrent;
 
-    @BindView(R.id.btncancelJoin)
-    Button btncancelJoin;
-
 
     private CameraFirebase cameraFirebase;
     private AddCourseClass addCourseClass;
@@ -77,7 +69,7 @@ public class AddCourseActivity extends AppCompatActivity implements AddCourseInt
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_see_more);
+        setContentView(R.layout.activity_add_course);
         ButterKnife.bind(this);
         getIntentData();
         initComponents();
@@ -99,82 +91,14 @@ public class AddCourseActivity extends AppCompatActivity implements AddCourseInt
         edtstart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Calendar mcurrentTime = Calendar.getInstance();
-                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                int minute = mcurrentTime.get(Calendar.MINUTE);
-                TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(AddCourseActivity.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        TimeFrom = edtstart.getText().toString().trim();
-                        NumberFormat nf = NumberFormat.getInstance(new Locale("en","US")); //or "nb","No" - for Norway
-                        int sDistance =Integer.parseInt( nf.format(selectedHour));
-                        int Distance = Integer.parseInt(nf.format(selectedMinute));
-
-                        if(sDistance< 10)
-                        {
-                            hours="0"+sDistance;
-
-                        }
-                        else {
-                            hours=sDistance+"";
-                        }
-                        if(Distance< 10)
-                        {
-                            minuts="0"+Distance;
-
-                        }
-                        else {
-                            minuts=Distance+"";
-                        }
-
-                        edtstart.setText(hours+":"+minuts);
-
-                    }
-                }, hour, minute, true);//Yes 24 hour time
-                mTimePicker.setTitle(getString(R.string.select_time));
-                mTimePicker.show();
-
+                addCoursePresenter.selectDate(edtstart);
             }
         });
 
         edtend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Calendar currentTime = Calendar.getInstance();
-                int Hour = currentTime.get(Calendar.HOUR_OF_DAY);
-                int Minute = currentTime.get(Calendar.MINUTE);
-                TimePickerDialog TimePicker;
-                TimePicker = new TimePickerDialog(AddCourseActivity.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        NumberFormat nf = NumberFormat.getInstance(new Locale("en","US")); //or "nb","No" - for Norway
-                        int sDistance =Integer.parseInt( nf.format(selectedHour));
-                        int Distance = Integer.parseInt(nf.format(selectedMinute));
-                        if(sDistance< 10)
-                        {
-                            hours="0"+sDistance;
-
-                        }
-                        else {
-                            hours=sDistance+"";
-                        }
-                        if(Distance< 10)
-                        {
-                            minuts="0"+Distance;
-
-                        }
-                        else {
-                            minuts=Distance+"";
-                        }
-                        edtend.setText(hours+":"+minuts);
-                    }
-                }, Hour, Minute, true);//Yes 24 hour time
-                TimePicker.setTitle(getString(R.string.select_time));
-                TimePicker.show();
-
+                addCoursePresenter.selectDate(edtend);
             }
         });
 

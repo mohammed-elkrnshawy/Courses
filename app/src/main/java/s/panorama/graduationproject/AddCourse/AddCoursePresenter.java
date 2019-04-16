@@ -1,8 +1,11 @@
 package s.panorama.graduationproject.AddCourse;
 
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.Continuation;
@@ -15,16 +18,21 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.text.NumberFormat;
+import java.util.Calendar;
+import java.util.Locale;
 import java.util.UUID;
 
 import s.panorama.graduationproject.Classes.Constant;
 import s.panorama.graduationproject.Classes.SharedUtils;
 import s.panorama.graduationproject.Models.UserObjectClass;
+import s.panorama.graduationproject.R;
 
 public class AddCoursePresenter {
+
+    private String TimeFrom;
     private Dialog progressDialog;
     private AddCourseActivity view;
-    private FirebaseDatabase firebasedatabase;
     private FirebaseDatabase database;
     private DatabaseReference myRef;
     private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
@@ -96,7 +104,23 @@ public class AddCoursePresenter {
     }
 
 
+    public void selectDate(final TextView edtstart) {
+        Calendar mcurrentTime = Calendar.getInstance();
+        int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+        int minute = mcurrentTime.get(Calendar.MINUTE);
+        TimePickerDialog mTimePicker;
+        mTimePicker = new TimePickerDialog(view, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                TimeFrom = edtstart.getText().toString().trim();
+                NumberFormat nf = NumberFormat.getInstance(new Locale("en","US")); //or "nb","No" - for Norway
+                int sDistance =Integer.parseInt( nf.format(selectedHour));
+                int Distance = Integer.parseInt(nf.format(selectedMinute));
+                edtstart.setText(String.format("%02d", sDistance)+":"+String.format("%02d", Distance));
 
-
-
+            }
+        }, hour, minute, true);//Yes 24 hour time
+        mTimePicker.setTitle(view.getString(R.string.select_time));
+        mTimePicker.show();
+    }
 }

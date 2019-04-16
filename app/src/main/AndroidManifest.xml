@@ -38,7 +38,7 @@
         </provider>
 
         <activity android:name=".Activity.ForgetActivity" />
-        <activity android:name=".AddCourse.MapsActivity" />
+        <activity android:name=".Activity.MapsActivity" />
         <activity android:name=".Activity.RegisterActivity" />
         <activity android:name=".Activity.LoginActivity" />
         <activity android:name=".AddCourse.AddCourseActivity" />

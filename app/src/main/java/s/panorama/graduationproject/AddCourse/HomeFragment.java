@@ -49,10 +49,6 @@ public class HomeFragment extends Fragment implements CoursesInterface {
     private UserObjectClass userObjectClass;
 
 
-    private Dialog progressDialog;
-
-
-
 
     public HomeFragment() {
         // Required empty public constructor
@@ -99,13 +95,14 @@ public class HomeFragment extends Fragment implements CoursesInterface {
         Query query = reference.child("Courses");
         RecyclerView.LayoutManager layoutmanager = new LinearLayoutManager(getContext());
         courses.setLayoutManager(layoutmanager);
-        coursesAdapter = new CoursesAdapter(list,getContext());
+        coursesAdapter = new CoursesAdapter(list,getContext(),userObjectClass);
         courses.setAdapter(coursesAdapter);
 
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
+                    list.clear();
                     for (DataSnapshot issue : dataSnapshot.getChildren()) {
                         MessageClassObject=issue.getValue(AddCourseClass.class);
                         list.add(MessageClassObject);

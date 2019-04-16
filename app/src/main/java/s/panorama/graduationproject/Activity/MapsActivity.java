@@ -1,4 +1,4 @@
-package s.panorama.graduationproject.AddCourse;
+package s.panorama.graduationproject.Activity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
