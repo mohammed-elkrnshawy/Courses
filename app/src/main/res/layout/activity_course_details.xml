@@ -134,7 +134,7 @@
                 android:textStyle="bold" />
 
 
-            <EditText
+            <TextView
                 android:id="@+id/edtTitle"
                 android:layout_width="200dp"
                 android:layout_height="40dp"
@@ -166,7 +166,7 @@
                 android:textStyle="bold" />
 
 
-            <EditText
+            <TextView
                 android:id="@+id/edtdesc"
                 android:layout_width="200dp"
                 android:layout_height="100dp"
@@ -198,7 +198,7 @@
                 android:textStyle="bold" />
 
 
-            <EditText
+            <TextView
                 android:id="@+id/edtPrice"
                 android:layout_width="200dp"
                 android:layout_height="40dp"
@@ -262,7 +262,7 @@
                 android:textStyle="bold" />
 
 
-            <EditText
+            <TextView
                 android:id="@+id/edtAdress"
                 android:layout_width="200dp"
                 android:layout_height="40dp"
@@ -286,6 +286,7 @@
             android:layout_margin="5dp"
             android:text="@string/duration"
             android:textSize="14dp"
+            android:visibility="gone"
             android:textStyle="bold" />
 
 
@@ -352,7 +353,7 @@
                 android:textStyle="bold" />
 
 
-            <EditText
+            <TextView
                 android:id="@+id/edtattendence"
                 android:layout_width="100dp"
                 android:layout_height="40dp"
@@ -382,7 +383,7 @@
                 android:textStyle="bold" />
 
 
-            <EditText
+            <TextView
                 android:id="@+id/edtcurrent"
                 android:layout_width="100dp"
                 android:layout_height="40dp"
@@ -406,12 +407,11 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btncancel"
-                android:visibility="gone"
+                android:id="@+id/followCourse"
                 android:layout_width="120dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="30dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/shape_btn"
@@ -420,17 +420,17 @@
                 android:paddingTop="5dp"
                 android:paddingEnd="20dp"
                 android:paddingBottom="5dp"
-                android:text="@string/cancel"
+                android:text="@string/follow"
                 android:textColor="@color/colorWhite" />
 
 
             <Button
-                android:id="@+id/btncancelJoin"
+                android:id="@+id/joinCourse"
                 android:layout_width="120dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:layout_marginStart="150dp"
+                android:layout_marginStart="30dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/shape_btn"
@@ -439,7 +439,7 @@
                 android:paddingTop="5dp"
                 android:paddingEnd="20dp"
                 android:paddingBottom="5dp"
-                android:text="@string/AddCourse"
+                android:text="@string/join"
                 android:textColor="@color/colorWhite"
                 android:textSize="12dp" />
 

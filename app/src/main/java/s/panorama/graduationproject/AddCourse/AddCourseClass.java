@@ -4,7 +4,11 @@ import java.io.Serializable;
 
 public class AddCourseClass implements Serializable {
     private String UID;
+    private String CourseID;
     private String PersonalPhoto;
+
+
+
     private String Username;
     private String CourseImage;
     private String CourseTitle;
@@ -17,6 +21,13 @@ public class AddCourseClass implements Serializable {
     private String NumOfAttendence;
     private String currentAttendence;
 
+    public String getCourseID() {
+        return CourseID;
+    }
+
+    public void setCourseID(String courseID) {
+        CourseID = courseID;
+    }
     public String getPersonalPhoto() {
         return PersonalPhoto;
     }

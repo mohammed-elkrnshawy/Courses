@@ -1,10 +1,7 @@
-package s.panorama.graduationproject.AddCourse;
+package s.panorama.graduationproject.JoiningPackage;
 
-import android.app.Dialog;
-import android.content.Intent;
+
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,57 +22,56 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
-import s.panorama.graduationproject.AddCourse.AddCourseActivity;
-import s.panorama.graduationproject.Classes.CameraFirebase;
-import s.panorama.graduationproject.Classes.Constant;
+import s.panorama.graduationproject.AddCourse.AddCourseClass;
+import s.panorama.graduationproject.AddCourse.CoursesAdapter;
+import s.panorama.graduationproject.AddCourse.CoursesPresenter;
 import s.panorama.graduationproject.Models.UserObjectClass;
 import s.panorama.graduationproject.R;
 
-public class HomeFragment extends Fragment implements CoursesInterface {
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class JoiningFragment extends Fragment implements JoinCourseInterface{
+
 
     @BindView(R.id.courses)
     RecyclerView courses;
-    @BindView(R.id.fab)
-    FloatingActionButton fab;
     Unbinder unbinder;
 
     private View view;
     List<AddCourseClass> list;
     private AddCourseClass MessageClassObject;
-    private CoursesPresenter coursesPresenter;
-    private CoursesAdapter coursesAdapter;
+    private JoinCoursePresenter joinCoursePresenter;
+    private JoiningAdapter joiningAdapter;
     private UserObjectClass userObjectClass;
 
 
-    private Dialog progressDialog;
 
 
 
 
-    public HomeFragment() {
+    public JoiningFragment() {
         // Required empty public constructor
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_home, container, false);
+         view = inflater.inflate(R.layout.fragment_joining, container, false);
         unbinder = ButterKnife.bind(this, view);
         initComponents();
         return view;
     }
+
     private void initComponents() {
         list = new ArrayList<>();
         userObjectClass = (UserObjectClass) getArguments().getSerializable("userData");
-        coursesPresenter = new CoursesPresenter(this);
-        coursesPresenter.Show();
+        joinCoursePresenter = new JoinCoursePresenter(this);
+        joinCoursePresenter.Show();
     }
-
-
-
 
 
     @Override
@@ -84,14 +80,6 @@ public class HomeFragment extends Fragment implements CoursesInterface {
         unbinder.unbind();
     }
 
-    @OnClick(R.id.fab)
-    public void onClick() {
-        Intent intent=new Intent(getContext(), AddCourseActivity.class);
-        intent.putExtra("userData", userObjectClass);
-        startActivity(intent);
-    }
-
-
     @Override
     public void ShowResponse() {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
@@ -99,8 +87,8 @@ public class HomeFragment extends Fragment implements CoursesInterface {
         Query query = reference.child("Courses");
         RecyclerView.LayoutManager layoutmanager = new LinearLayoutManager(getContext());
         courses.setLayoutManager(layoutmanager);
-        coursesAdapter = new CoursesAdapter(list,getContext());
-        courses.setAdapter(coursesAdapter);
+        joiningAdapter = new JoiningAdapter(list,getContext(),userObjectClass);
+        courses.setAdapter(joiningAdapter);
 
         query.addValueEventListener(new ValueEventListener() {
             @Override
@@ -111,7 +99,7 @@ public class HomeFragment extends Fragment implements CoursesInterface {
                         list.add(MessageClassObject);
                     }
 
-                    coursesAdapter.notifyDataSetChanged();
+                    joiningAdapter.notifyDataSetChanged();
                 }
                 else {
                     Toast.makeText(getContext(), "Not Courses in this Category", Toast.LENGTH_LONG).show();
@@ -122,5 +110,6 @@ public class HomeFragment extends Fragment implements CoursesInterface {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+
     }
 }
