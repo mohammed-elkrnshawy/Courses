@@ -22,7 +22,7 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import s.panorama.graduationproject.Fragment.AboutFragment;
-import s.panorama.graduationproject.Fragment.FollowingFragment;
+import s.panorama.graduationproject.FollowingPackage.FollowingFragment;
 import s.panorama.graduationproject.AddCourse.HomeFragment;
 import s.panorama.graduationproject.JoiningPackage.JoiningFragment;
 import s.panorama.graduationproject.Fragment.NotificationFragment;

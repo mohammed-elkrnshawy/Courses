@@ -1,4 +1,4 @@
-package s.panorama.graduationproject.Fragment;
+package s.panorama.graduationproject.FollowingPackage;
 
 
 import android.os.Bundle;
