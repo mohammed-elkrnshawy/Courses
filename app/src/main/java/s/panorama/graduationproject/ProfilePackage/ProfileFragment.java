@@ -101,7 +101,6 @@ public class ProfileFragment extends Fragment implements ProfileInterface {
                         if (issue.child("uid").getValue().equals(userObjectClass.getUID())) {
                             MessageClassObject = issue.getValue(AddCourseClass.class);
                             list.add(MessageClassObject);
-
                         }
 
 

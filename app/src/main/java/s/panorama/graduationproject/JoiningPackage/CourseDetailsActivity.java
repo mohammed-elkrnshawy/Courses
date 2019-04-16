@@ -92,11 +92,14 @@ public class CourseDetailsActivity extends AppCompatActivity implements CourseDe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.followCourse:
+                FollowClass followClass = new FollowClass(userObjectClass.getUID(), addCourseClass.getUID());
+                courseDetailsPresenter.FollowDatabase(followClass);
                 break;
             case R.id.joinCourse:
                 if(Integer.parseInt(addCourseClass.getCurrentAttendence())< Integer.parseInt(addCourseClass.getNumOfAttendence())) {
                     JoinClass j = new JoinClass(addCourseClass.getCourseID(), userObjectClass.getUID());
                     addCourseClass.setCurrentAttendence((Integer.parseInt(addCourseClass.getCurrentAttendence())+1)+"");
+                    edtcurrent.setText(addCourseClass.getCurrentAttendence());
                     courseDetailsPresenter.saveDatabase(j, addCourseClass);
                 }
                 else {
@@ -121,15 +124,32 @@ public class CourseDetailsActivity extends AppCompatActivity implements CourseDe
         radio.setChecked(true);
         if(addCourseClass.getUID().equals(userObjectClass.getUID()) == true){
         joinCourse.setVisibility(View.GONE);
+        followCourse.setVisibility(View.GONE);
         }
 
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("Join");
-        rootRef.orderByChild("CourseID").equalTo(addCourseClass.getCourseID()).addListenerForSingleValueEvent(new ValueEventListener() {
+        rootRef.orderByChild("courseID").equalTo(addCourseClass.getCourseID()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot tasksSnapshot) {
-                for (DataSnapshot snapshot: tasksSnapshot.getChildren()) {
-                    if(snapshot.getRef().child("CourseID").equals(addCourseClass.getCourseID())&& snapshot.getRef().child("UserID").equals(userObjectClass.getUID()))
+                for (DataSnapshot snapshot: tasksSnapshot.getChildren())
+                {
+                    if(snapshot.child("courseID").getValue().equals(addCourseClass.getCourseID())&& snapshot.child("userID").getValue().equals(userObjectClass.getUID()))
                       joinCourse.setVisibility(View.GONE);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        DatabaseReference rootRef2 = FirebaseDatabase.getInstance().getReference("Follow");
+        rootRef2.orderByChild("follwedID").equalTo(addCourseClass.getUID()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot tasksSnapshot) {
+                for (DataSnapshot snapshot: tasksSnapshot.getChildren())
+                {
+                    if(snapshot.child("followerID").getValue().equals(userObjectClass.getUID())&& snapshot.child("follwedID").getValue().equals(addCourseClass.getUID()))
+                        joinCourse.setVisibility(View.GONE);
                 }
             }
             @Override

@@ -15,6 +15,7 @@ import com.google.firebase.storage.StorageReference;
 
 import s.panorama.graduationproject.AddCourse.AddCourseClass;
 import s.panorama.graduationproject.Classes.SharedUtils;
+import s.panorama.graduationproject.Models.UserObjectClass;
 
 
 public class CourseDetailsPresenter {
@@ -38,7 +39,7 @@ public class CourseDetailsPresenter {
         myRef = database.getReference("Join");
         String key =myRef.push().getKey();
 
-        myRef.setValue(objectClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+        myRef.child(key).setValue(objectClass).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 progressDialog.dismiss();
@@ -61,7 +62,57 @@ public class CourseDetailsPresenter {
             }
         });
 
-// e3ml update hna
+
+    }
+
+    public void FollowDatabase(final FollowClass followClass) {
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("Follow");
+        String key =myRef.push().getKey();
+
+        myRef.child(key).setValue(followClass).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                progressDialog.dismiss();
+                if (task.isSuccessful()) {
+                    database.getReference("Users").orderByChild("uid").equalTo(followClass.getFollowerID()).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot tasksSnapshot) {
+                            for (DataSnapshot snapshot: tasksSnapshot.getChildren()) {
+                                snapshot.getRef().child("follower").setValue(Integer.parseInt(snapshot.child("follower").getValue().toString())+1);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            System.out.println("The read failed: " + databaseError.getMessage());
+
+                        }
+                    });
+
+
+
+
+
+
+                    database.getReference("Users").orderByChild("uid").equalTo(followClass.getFollwedID()).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot tasksSnapshot) {
+                            for (DataSnapshot snapshot: tasksSnapshot.getChildren()) {
+                                snapshot.getRef().child("following").setValue(Integer.parseInt(snapshot.child("following").getValue().toString())+1);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            System.out.println("The read failed: " + databaseError.getMessage());
+
+                        }
+                    });
+                }
+            }
+        });
+
 
     }
 
