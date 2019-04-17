@@ -39,6 +39,7 @@ import s.panorama.graduationproject.Classes.SharedUtils;
 import s.panorama.graduationproject.Models.UserObjectClass;
 import s.panorama.graduationproject.R;
 
+import static android.content.Context.MODE_PRIVATE;
 import static android.support.constraint.Constraints.TAG;
 
 public class AuthClass {
@@ -145,6 +146,7 @@ public class AuthClass {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
+                            SharedPreferencesPut(userObject.getUID());
                             progressDialog.dismiss();
                             Intent intent = new Intent(context, HomeActivity.class);
                             intent.putExtra("userData", userObject);
@@ -205,6 +207,12 @@ public class AuthClass {
                 progressDialog.dismiss();
             }
         });
+    }
+
+    private void SharedPreferencesPut(String Token) {
+        SharedPreferences.Editor editor = context.getSharedPreferences(context.getApplication().getPackageName(), MODE_PRIVATE).edit();
+        editor.putString("Token", Token);
+        editor.apply();
     }
 
 }

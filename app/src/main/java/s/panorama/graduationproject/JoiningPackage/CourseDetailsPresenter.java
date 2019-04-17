@@ -27,7 +27,7 @@ public class CourseDetailsPresenter {
 
     public CourseDetailsPresenter(CourseDetailsActivity view) {
         this.view = view;
-        progressDialog= SharedUtils.ShowWaiting(view,progressDialog);
+        progressDialog = SharedUtils.ShowWaiting(view, progressDialog);
     }
 
     public void viewData() {
@@ -38,27 +38,14 @@ public class CourseDetailsPresenter {
     public void saveDatabase(JoinClass objectClass, final AddCourseClass addCourseClass) {
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("Join");
-        String key =myRef.push().getKey();
+        String key = myRef.push().getKey();
 
         myRef.child(key).setValue(objectClass).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 progressDialog.dismiss();
                 if (task.isSuccessful()) {
-                    database.getReference("Courses").orderByChild("courseID").equalTo(addCourseClass.getCourseID()).addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot tasksSnapshot) {
-                            for (DataSnapshot snapshot: tasksSnapshot.getChildren()) {
-                                snapshot.getRef().child("currentAttendence").setValue(addCourseClass.getCurrentAttendence());
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                            System.out.println("The read failed: " + databaseError.getMessage());
-
-                        }
-                    });
+                    ChangeAttendCount(addCourseClass);
                 }
             }
         });
@@ -69,7 +56,7 @@ public class CourseDetailsPresenter {
     public void FollowDatabase(final FollowClass followClass) {
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("Follow");
-        String key =myRef.push().getKey();
+        String key = myRef.push().getKey();
 
         myRef.child(key).setValue(followClass).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -79,8 +66,8 @@ public class CourseDetailsPresenter {
                     database.getReference("Users").orderByChild("uid").equalTo(followClass.getFollowerID()).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot tasksSnapshot) {
-                            for (DataSnapshot snapshot: tasksSnapshot.getChildren()) {
-                                snapshot.getRef().child("follower").setValue(Integer.parseInt(snapshot.child("follower").getValue().toString())+1);
+                            for (DataSnapshot snapshot : tasksSnapshot.getChildren()) {
+                                snapshot.getRef().child("follower").setValue(Integer.parseInt(snapshot.child("follower").getValue().toString()) + 1);
                             }
                         }
 
@@ -90,17 +77,12 @@ public class CourseDetailsPresenter {
 
                         }
                     });
-
-
-
-
-
 
                     database.getReference("Users").orderByChild("uid").equalTo(followClass.getFollwedID()).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot tasksSnapshot) {
-                            for (DataSnapshot snapshot: tasksSnapshot.getChildren()) {
-                                snapshot.getRef().child("following").setValue(Integer.parseInt(snapshot.child("following").getValue().toString())+1);
+                            for (DataSnapshot snapshot : tasksSnapshot.getChildren()) {
+                                snapshot.getRef().child("following").setValue(Integer.parseInt(snapshot.child("following").getValue().toString()) + 1);
                             }
                         }
 
@@ -110,6 +92,7 @@ public class CourseDetailsPresenter {
 
                         }
                     });
+
                 }
             }
         });
@@ -117,7 +100,22 @@ public class CourseDetailsPresenter {
 
     }
 
+    private void ChangeAttendCount(final AddCourseClass addCourseClass) {
 
+        database.getReference("Courses").orderByChild("courseID").equalTo(addCourseClass.getCourseID())
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot tasksSnapshot) {
+                        for (DataSnapshot snapshot : tasksSnapshot.getChildren()) {
+                            snapshot.getRef().child("currentAttendence").setValue(addCourseClass.getCurrentAttendence());
+                        }
+                    }
 
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        System.out.println("The read failed: " + databaseError.getMessage());
 
+                    }
+                });
+    }
 }

@@ -82,10 +82,9 @@ public class CourseDetailsActivity extends AppCompatActivity implements CourseDe
     }
 
     private void initComponents() {
-        courseDetailsPresenter=new CourseDetailsPresenter(this);
+        courseDetailsPresenter = new CourseDetailsPresenter(this);
         courseDetailsPresenter.viewData();
     }
-
 
 
     @OnClick({R.id.followCourse, R.id.joinCourse})
@@ -97,10 +96,10 @@ public class CourseDetailsActivity extends AppCompatActivity implements CourseDe
                 break;
             case R.id.joinCourse:
                 if(Integer.parseInt(addCourseClass.getCurrentAttendence())< Integer.parseInt(addCourseClass.getNumOfAttendence())) {
-                    JoinClass j = new JoinClass(addCourseClass.getCourseID(), userObjectClass.getUID());
+                    JoinClass joinObject = new JoinClass(addCourseClass.getCourseID(), userObjectClass.getUID());
                     addCourseClass.setCurrentAttendence((Integer.parseInt(addCourseClass.getCurrentAttendence())+1)+"");
                     edtcurrent.setText(addCourseClass.getCurrentAttendence());
-                    courseDetailsPresenter.saveDatabase(j, addCourseClass);
+                    courseDetailsPresenter.saveDatabase(joinObject, addCourseClass);
                 }
                 else {
                     Toast.makeText(this, "Course is full", Toast.LENGTH_SHORT).show();
@@ -111,7 +110,7 @@ public class CourseDetailsActivity extends AppCompatActivity implements CourseDe
 
     @Override
     public void setDataToView() {
-        ImageLoader.getInstance().displayImage(addCourseClass.getCourseImage(),image);
+        ImageLoader.getInstance().displayImage(addCourseClass.getCourseImage(), image);
         edtTitle.setText(addCourseClass.getCourseTitle());
         edtdesc.setText(addCourseClass.getCourseDesc());
         edtLocation.setText(addCourseClass.getCourseLocation());
@@ -122,36 +121,22 @@ public class CourseDetailsActivity extends AppCompatActivity implements CourseDe
         edtcurrent.setText(addCourseClass.getCurrentAttendence());
         edtattendence.setText(addCourseClass.getNumOfAttendence());
         radio.setChecked(true);
-<<<<<<< HEAD
 
-        if(addCourseClass.getUID().equals(userObjectClass.getUID())){
+        if (addCourseClass.getUID().equals(userObjectClass.getUID())) {
             joinCourse.setVisibility(View.GONE);
             followCourse.setVisibility(View.GONE);
         }
 
-        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("Join");
-        rootRef.orderByChild("CourseID").equalTo(addCourseClass.getCourseID())
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot tasksSnapshot) {
-                for (DataSnapshot snapshot: tasksSnapshot.getChildren()) {
-                    if(snapshot.getRef().child("CourseID").equals(addCourseClass.getCourseID())
-                            && snapshot.getRef().child("UserID").equals(userObjectClass.getUID()))
-=======
-        if(addCourseClass.getUID().equals(userObjectClass.getUID()) == true){
-        joinCourse.setVisibility(View.GONE);
-        followCourse.setVisibility(View.GONE);
-        }
 
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("Join");
-        rootRef.orderByChild("courseID").equalTo(addCourseClass.getCourseID()).addListenerForSingleValueEvent(new ValueEventListener() {
+        rootRef.orderByChild("courseID").equalTo(addCourseClass.getCourseID()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot tasksSnapshot) {
-                for (DataSnapshot snapshot: tasksSnapshot.getChildren())
-                {
-                    if(snapshot.child("courseID").getValue().equals(addCourseClass.getCourseID())&& snapshot.child("userID").getValue().equals(userObjectClass.getUID()))
->>>>>>> 1c2271719a1a99649051f837dc73d8d687e85970
-                      joinCourse.setVisibility(View.GONE);
+                if (tasksSnapshot.exists()) {
+                    for (DataSnapshot snapshot : tasksSnapshot.getChildren()) {
+                        if (snapshot.child("courseID").getValue().equals(addCourseClass.getCourseID()) && snapshot.child("userID").getValue().equals(userObjectClass.getUID()))
+                            joinCourse.setVisibility(View.GONE);
+                    }
                 }
             }
             @Override
@@ -159,6 +144,8 @@ public class CourseDetailsActivity extends AppCompatActivity implements CourseDe
 
             }
         });
+
+
         DatabaseReference rootRef2 = FirebaseDatabase.getInstance().getReference("Follow");
         rootRef2.orderByChild("follwedID").equalTo(addCourseClass.getUID()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -166,7 +153,7 @@ public class CourseDetailsActivity extends AppCompatActivity implements CourseDe
                 for (DataSnapshot snapshot: tasksSnapshot.getChildren())
                 {
                     if(snapshot.child("followerID").getValue().equals(userObjectClass.getUID())&& snapshot.child("follwedID").getValue().equals(addCourseClass.getUID()))
-                        joinCourse.setVisibility(View.GONE);
+                        followCourse.setVisibility(View.GONE);
                 }
             }
             @Override
@@ -174,5 +161,6 @@ public class CourseDetailsActivity extends AppCompatActivity implements CourseDe
 
             }
         });
+
     }
 }
