@@ -210,7 +210,11 @@ public class AuthClass {
     }
 
     private void SharedPreferencesPut(String Token) {
+<<<<<<< HEAD
         SharedPreferences.Editor editor = context.getSharedPreferences(context.getApplicationContext().getPackageName(), MODE_PRIVATE).edit();
+=======
+        SharedPreferences.Editor editor = context.getSharedPreferences(context.getPackageName(), MODE_PRIVATE).edit();
+>>>>>>> 5f5706a00aee919e24023ac993f26b72b26e376c
         editor.putString("Token", Token);
         editor.apply();
     }

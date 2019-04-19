@@ -101,6 +101,7 @@ public class JoiningFragment extends Fragment implements JoinCourseInterface{
 
                     joiningAdapter.notifyDataSetChanged();
                 }
+
                 else {
                     Toast.makeText(getContext(), "Not Courses in this Category", Toast.LENGTH_LONG).show();
                 }
