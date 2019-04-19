@@ -1,18 +1,15 @@
-package s.panorama.graduationproject.JoiningPackage;
+package s.panorama.graduationproject.CourseDetailsPackage;
 
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.flags.impl.DataUtils;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,19 +20,16 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.internal.Utils;
 import s.panorama.graduationproject.AddCourse.AddCourseClass;
-import s.panorama.graduationproject.Classes.CameraFirebase;
+import s.panorama.graduationproject.JoiningPackage.FollowClass;
+import s.panorama.graduationproject.JoiningPackage.JoinClass;
 import s.panorama.graduationproject.Models.UserObjectClass;
-import s.panorama.graduationproject.ProfilePackage.EditProfilePresenter;
 import s.panorama.graduationproject.R;
 
 public class CourseDetailsActivity extends AppCompatActivity implements CourseDetailsInterface {
 
     @BindView(R.id.image)
     ImageView image;
-    @BindView(R.id.radio)
-    RadioButton radio;
     @BindView(R.id.edtTitle)
     TextView edtTitle;
     @BindView(R.id.edtdesc)
@@ -120,7 +114,6 @@ public class CourseDetailsActivity extends AppCompatActivity implements CourseDe
         edtend.setText(addCourseClass.getCourseEnd());
         edtcurrent.setText(addCourseClass.getCurrentAttendence());
         edtattendence.setText(addCourseClass.getNumOfAttendence());
-        radio.setChecked(true);
 
         if (addCourseClass.getUID().equals(userObjectClass.getUID())) {
             joinCourse.setVisibility(View.GONE);

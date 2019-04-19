@@ -1,4 +1,4 @@
-package s.panorama.graduationproject.JoiningPackage;
+package s.panorama.graduationproject.CourseDetailsPackage;
 
 import android.app.Dialog;
 import android.support.annotation.NonNull;
@@ -15,7 +15,8 @@ import com.google.firebase.storage.StorageReference;
 
 import s.panorama.graduationproject.AddCourse.AddCourseClass;
 import s.panorama.graduationproject.Classes.SharedUtils;
-import s.panorama.graduationproject.Models.UserObjectClass;
+import s.panorama.graduationproject.JoiningPackage.FollowClass;
+import s.panorama.graduationproject.JoiningPackage.JoinClass;
 
 
 public class CourseDetailsPresenter {

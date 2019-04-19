@@ -61,7 +61,7 @@
         </android.support.v7.widget.CardView>
 
 
-        <LinearLayout
+        <!--<LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
@@ -81,52 +81,17 @@
                 android:textStyle="bold" />
 
 
-        </LinearLayout>
+        </LinearLayout>-->
 
-
-        <!--
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/instructor"
-            android:layout_margin="10dp"
-            android:textStyle="bold"
-            android:textSize="14dp"
-            />
-
-
-
-        <EditText
-            android:id="@+id/instructorName"
-            android:layout_width="200dp"
-            android:layout_height="40dp"
-            android:padding="7dp"
-            android:elevation="5dp"
-            android:background="@drawable/shape_txt"
-            android:inputType="text"
-            android:layout_margin="10dp"
-            android:textSize="14sp" />
-
-
-
-
-    </LinearLayout>
--->
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:paddingStart="5dp"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="@string/title"
@@ -138,7 +103,6 @@
                 android:id="@+id/edtTitle"
                 android:layout_width="200dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="30dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
@@ -152,13 +116,13 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="@string/desc"
@@ -166,31 +130,39 @@
                 android:textStyle="bold" />
 
 
-            <TextView
-                android:id="@+id/edtdesc"
-                android:layout_width="200dp"
-                android:layout_height="100dp"
+            <RelativeLayout
+                android:elevation="5dp"
+                android:background="@drawable/shape_txt"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/shape_txt"
-                android:elevation="5dp"
-                android:gravity="start"
-                android:inputType="text"
-                android:padding="7dp"
-                android:textSize="14sp" />
+                android:layout_width="200dp"
+                android:layout_height="100dp">
+
+                <TextView
+                    android:lines="4"
+                    android:background="@null"
+                    android:id="@+id/edtdesc"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="start|top"
+                    android:inputType="text"
+                    android:padding="7dp"
+                    android:textSize="14sp" />
+
+            </RelativeLayout>
 
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:paddingStart="5dp"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="@string/price"
@@ -202,13 +174,12 @@
                 android:id="@+id/edtPrice"
                 android:layout_width="200dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="45dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/shape_txt"
                 android:elevation="5dp"
-                android:inputType="text"
+                android:inputType="number"
                 android:padding="7dp"
                 android:textSize="14sp" />
 
@@ -216,13 +187,13 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:paddingStart="5dp"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="@string/location"
@@ -234,7 +205,6 @@
                 android:id="@+id/edtLocation"
                 android:layout_width="200dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
@@ -248,13 +218,13 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:paddingStart="5dp"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="@string/address"
@@ -263,48 +233,41 @@
 
 
             <TextView
+                android:gravity="center"
+                android:textAlignment="textStart"
                 android:id="@+id/edtAdress"
                 android:layout_width="200dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="25dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/shape_txt"
                 android:elevation="5dp"
-                android:inputType="text"
-                android:padding="7dp"
+                android:paddingStart="10dp"
                 android:textSize="14sp" />
 
 
         </LinearLayout>
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="@string/duration"
-            android:textSize="14dp"
-            android:visibility="gone"
-            android:textStyle="bold" />
-
-
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:gravity="center|start"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:text="@string/start"
+                android:text="@string/duration"
                 android:textSize="14dp"
                 android:textStyle="bold" />
 
             <TextView
+                android:gravity="center"
+                android:hint="@string/start"
                 android:id="@+id/edtstart"
                 android:layout_width="100dp"
                 android:layout_height="40dp"
@@ -315,16 +278,9 @@
                 android:padding="7dp"
                 android:textSize="10sp" />
 
-
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:text="@string/end"
-                android:textSize="14dp"
-                android:textStyle="bold" />
-
-            <TextView
+                android:gravity="center"
+                android:hint="@string/end"
                 android:id="@+id/edtend"
                 android:layout_width="100dp"
                 android:layout_height="40dp"
@@ -335,18 +291,16 @@
                 android:padding="7dp"
                 android:textSize="10sp" />
 
-
         </LinearLayout>
 
-
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:paddingStart="5dp"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="@string/max"
@@ -355,14 +309,14 @@
 
             <TextView
                 android:id="@+id/edtattendence"
-                android:layout_width="100dp"
+                android:layout_width="200dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/shape_txt"
                 android:elevation="5dp"
-                android:inputType="text"
+                android:inputType="number"
                 android:padding="7dp"
                 android:textSize="14sp" />
 
@@ -370,13 +324,13 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:paddingStart="5dp"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="@string/current"
@@ -385,15 +339,14 @@
 
             <TextView
                 android:id="@+id/edtcurrent"
-                android:layout_width="100dp"
+                android:layout_width="200dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="25dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/shape_txt"
                 android:elevation="5dp"
-                android:inputType="text"
+                android:inputType="number"
                 android:padding="7dp"
                 android:textSize="14sp" />
 

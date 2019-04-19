@@ -214,10 +214,10 @@ public class AddCourseActivity extends AppCompatActivity implements AddCourseInt
                 addCoursePresenter.validate();
                 break;
             case R.id.edtstart:
-                addCoursePresenter.selectDate(edtend);
+                addCoursePresenter.selectDate(edtstart);
                 break;
             case R.id.edtend:
-                addCoursePresenter.selectDate(edtstart);
+                addCoursePresenter.selectDate(edtend);
                 break;
             case R.id.edtLocation:
                 startActivityForResult(new Intent(AddCourseActivity.this, MapsActivity.class), Constant.Map);

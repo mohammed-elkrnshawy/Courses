@@ -1,4 +1,4 @@
-package s.panorama.graduationproject.JoiningPackage;
+package s.panorama.graduationproject.CourseDetailsPackage;
 
 public interface CourseDetailsInterface {
     void setDataToView();

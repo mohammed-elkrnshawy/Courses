@@ -39,7 +39,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private Bundle bundleFragments;
     private View header;
-    private LinearLayout PersonalPage,Following,Joining,About,Logout;
+    private LinearLayout relativeHome,PersonalPage,Following,Joining,About,Logout;
     private static TextView userName;
     private static ImageView personPhoto;
     private static UserObjectClass userObject;
@@ -63,7 +63,7 @@ public class HomeActivity extends AppCompatActivity {
         InitComponents();
         getIntentData();
         setToolBar();
-        setFragment(new HomeFragment(),getString(R.string.personal));
+        setFragment(new HomeFragment(),getString(R.string.home));
         onClick();
 
     }
@@ -98,6 +98,7 @@ public class HomeActivity extends AppCompatActivity {
         bundleFragments=new Bundle();
 
         header=navigationView.getHeaderView(0);
+        relativeHome=header.findViewById(R.id.relativeHome);
         PersonalPage=header.findViewById(R.id.personal);
         Joining=header.findViewById(R.id.joining);
         Following=header.findViewById(R.id.following);
@@ -117,6 +118,14 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void onClick() {
+
+        relativeHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setFragment(new HomeFragment(),getString(R.string.home));
+            }
+        });
+
         PersonalPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

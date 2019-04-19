@@ -2,7 +2,6 @@ package s.panorama.graduationproject.AddCourse;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +14,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
-import s.panorama.graduationproject.JoiningPackage.CourseDetailsActivity;
+import s.panorama.graduationproject.CourseDetailsPackage.CourseDetailsActivity;
 import s.panorama.graduationproject.Models.UserObjectClass;
 import s.panorama.graduationproject.R;
 
