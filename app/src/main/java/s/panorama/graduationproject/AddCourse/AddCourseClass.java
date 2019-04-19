@@ -15,11 +15,13 @@ public class AddCourseClass implements Serializable {
     private String CourseDesc;
     private String CoursePrice;
     private String CourseLocation;
+    private int CourseAddressID;
     private String CourseAddress;
     private String CourseStart;
     private String CourseEnd;
     private String NumOfAttendence;
     private String currentAttendence;
+    private String CourseType;
 
     public String getCourseID() {
         return CourseID;
@@ -42,11 +44,6 @@ public class AddCourseClass implements Serializable {
 
     public void setUsername(String username) {
         Username = username;
-    }
-
-    public AddCourseClass()
-    {
-
     }
 
     public String getUID() {
@@ -97,12 +94,12 @@ public class AddCourseClass implements Serializable {
         CourseLocation = courseLocation;
     }
 
-    public String getCourseAddress() {
-        return CourseAddress;
+    public int getCourseAddressID() {
+        return CourseAddressID;
     }
 
-    public void setCourseAddress(String courseAddress) {
-        CourseAddress = courseAddress;
+    public void setCourseAddressID(int courseAddressID) {
+        CourseAddressID = courseAddressID;
     }
 
     public String getCourseStart() {
@@ -135,5 +132,21 @@ public class AddCourseClass implements Serializable {
 
     public void setCurrentAttendence(String currentAttendence) {
         this.currentAttendence = currentAttendence;
+    }
+
+    public String getCourseType() {
+        return CourseType;
+    }
+
+    public void setCourseType(String courseType) {
+        CourseType = courseType;
+    }
+
+    public String getCourseAddress() {
+        return CourseAddress;
+    }
+
+    public void setCourseAddress(String courseAddress) {
+        CourseAddress = courseAddress;
     }
 }
