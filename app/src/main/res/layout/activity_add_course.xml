@@ -10,42 +10,8 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!--
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
         <android.support.v7.widget.CardView
-            android:id="@+id/j"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_margin="20dp"
-            app:cardCornerRadius="35dp">
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/userImage"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/user" />
-        </android.support.v7.widget.CardView>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/username"
-            android:layout_gravity="center"
-            android:textStyle="bold"
-            android:id="@+id/userName"
-            android:textSize="14dp"
-            android:layout_margin="10dp"
-            />
-
-
-    </LinearLayout>
--->
-
-
-        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="130dp"
             android:layout_margin="20dp"
@@ -58,67 +24,45 @@
                 android:layout_height="match_parent"
                 android:scaleType="fitXY" />
 
+            <ImageView
+                android:tint="@color/colorBlack"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_add" />
 
         </android.support.v7.widget.CardView>
 
-
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="40dp"
-            android:orientation="horizontal">
+                android:gravity="center|start"
+            android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/type"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:text="@string/course"
+                    android:id="@+id/radioCourse"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content" />
 
             <RadioButton
-                android:id="@+id/radio"
-                android:layout_width="wrap_content"
+                android:text="@string/posts"
+                android:id="@+id/radioPost"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content" />
 
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Course"
-                android:textSize="14dp"
-                android:textStyle="bold" />
-
-
-        </LinearLayout>
-
-
-        <!--
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/instructor"
-            android:layout_margin="10dp"
-            android:textStyle="bold"
-            android:textSize="14dp"
-            />
-
-
-
-        <EditText
-            android:id="@+id/instructorName"
-            android:layout_width="200dp"
-            android:layout_height="40dp"
-            android:padding="7dp"
-            android:elevation="5dp"
-            android:background="@drawable/shape_txt"
-            android:inputType="text"
-            android:layout_margin="10dp"
-            android:textSize="14sp" />
-
-
-
-
-    </LinearLayout>
--->
+            </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -127,7 +71,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="@string/title"
@@ -139,7 +83,6 @@
                 android:id="@+id/edtTitle"
                 android:layout_width="200dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="30dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
@@ -159,7 +102,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="@string/desc"
@@ -191,7 +134,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="@string/price"
@@ -203,7 +146,6 @@
                 android:id="@+id/edtPrice"
                 android:layout_width="200dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="45dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
@@ -223,7 +165,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="@string/location"
@@ -235,7 +177,6 @@
                 android:id="@+id/edtLocation"
                 android:layout_width="200dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
@@ -255,7 +196,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="@string/address"
@@ -267,7 +208,6 @@
                 android:id="@+id/edtAdress"
                 android:layout_width="200dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="25dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
@@ -280,77 +220,49 @@
 
         </LinearLayout>
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="@string/duration"
-            android:textSize="14dp"
-            android:textStyle="bold" />
-
-
         <LinearLayout
+            android:gravity="center|start"
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="5dp"
             android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:text="@string/start"
-                    android:textSize="14dp"
-                    android:textStyle="bold" />
+                android:text="@string/duration"
+                android:textSize="14dp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/edtstart"
-                    android:layout_width="100dp"
-                    android:layout_height="40dp"
-                    android:layout_margin="5dp"
-                    android:background="@drawable/shape_txt"
-                    android:elevation="5dp"
-                    android:inputType="text"
-                    android:padding="7dp"
-                    android:textSize="10sp" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:text="@string/end"
-                    android:textSize="14dp"
-                    android:textStyle="bold" />
+            <TextView
+                android:gravity="center"
+                android:hint="@string/start"
+                android:id="@+id/edtstart"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/shape_txt"
+                android:elevation="5dp"
+                android:inputType="text"
+                android:padding="7dp"
+                android:textSize="10sp" />
 
-                <TextView
-                    android:id="@+id/edtend"
-                    android:layout_width="100dp"
-                    android:layout_height="40dp"
-                    android:layout_margin="5dp"
-                    android:background="@drawable/shape_txt"
-                    android:elevation="5dp"
-                    android:inputType="text"
-                    android:padding="7dp"
-                    android:textSize="10sp" />
-            </LinearLayout>
-
-
-
-
-
-
+            <TextView
+                android:gravity="center"
+                android:hint="@string/end"
+                android:id="@+id/edtend"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/shape_txt"
+                android:elevation="5dp"
+                android:inputType="text"
+                android:padding="7dp"
+                android:textSize="10sp" />
 
         </LinearLayout>
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -359,7 +271,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="@string/max"
@@ -368,7 +280,7 @@
 
             <EditText
                 android:id="@+id/edtattendence"
-                android:layout_width="100dp"
+                android:layout_width="200dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
@@ -389,7 +301,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="@string/current"
@@ -398,9 +310,8 @@
 
             <EditText
                 android:id="@+id/edtcurrent"
-                android:layout_width="100dp"
+                android:layout_width="200dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="25dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
@@ -446,6 +357,5 @@
 
 
     </LinearLayout>
-
 
 </ScrollView>

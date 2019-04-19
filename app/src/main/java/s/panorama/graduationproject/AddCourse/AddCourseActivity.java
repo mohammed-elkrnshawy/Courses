@@ -32,8 +32,10 @@ public class AddCourseActivity extends AppCompatActivity implements AddCourseInt
 
     @BindView(R.id.image)
     ImageView image;
-    @BindView(R.id.radio)
-    RadioButton radio;
+    @BindView(R.id.radioCourse)
+    RadioButton radioCourse;
+    @BindView(R.id.radioPost)
+    RadioButton radioPost;
     @BindView(R.id.edtTitle)
     EditText edtTitle;
     @BindView(R.id.edtdesc)
