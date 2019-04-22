@@ -2,6 +2,7 @@ package s.panorama.graduationproject.JoiningPackage;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,6 +27,7 @@ import butterknife.Unbinder;
 import s.panorama.graduationproject.AddCourse.AddCourseClass;
 import s.panorama.graduationproject.AddCourse.CoursesAdapter;
 import s.panorama.graduationproject.AddCourse.CoursesPresenter;
+import s.panorama.graduationproject.FollowingPackage.FollowingAdapter;
 import s.panorama.graduationproject.Models.UserObjectClass;
 import s.panorama.graduationproject.R;
 
@@ -41,7 +43,7 @@ public class JoiningFragment extends Fragment implements JoinCourseInterface{
 
     private View view;
     List<AddCourseClass> list;
-    private AddCourseClass MessageClassObject;
+    private JoinClass MessageClassObject;
     private JoinCoursePresenter joinCoursePresenter;
     private JoiningAdapter joiningAdapter;
     private UserObjectClass userObjectClass;
@@ -82,28 +84,76 @@ public class JoiningFragment extends Fragment implements JoinCourseInterface{
 
     @Override
     public void ShowResponse() {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+//        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+//        list.clear();
+//        Query query = reference.child("Courses");
+//        RecyclerView.LayoutManager layoutmanager = new LinearLayoutManager(getContext());
+//        courses.setLayoutManager(layoutmanager);
+//        joiningAdapter = new JoiningAdapter(list,getContext(),userObjectClass);
+//        courses.setAdapter(joiningAdapter);
+//
+//        query.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                if (dataSnapshot.exists()) {
+//                    for (DataSnapshot issue : dataSnapshot.getChildren()) {
+//                        MessageClassObject=issue.getValue(AddCourseClass.class);
+//                        list.add(MessageClassObject);
+//                    }
+//
+//                    joiningAdapter.notifyDataSetChanged();
+//                }
+//
+//                else {
+//                    Toast.makeText(getContext(), "Not Courses in this Category", Toast.LENGTH_LONG).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//            }
+//        });
+        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         list.clear();
-        Query query = reference.child("Courses");
+        Query query = reference.child("Join")/*.equalTo(MessageClassObject.getCourseID())*/;
         RecyclerView.LayoutManager layoutmanager = new LinearLayoutManager(getContext());
         courses.setLayoutManager(layoutmanager);
-        joiningAdapter = new JoiningAdapter(list,getContext(),userObjectClass);
+        joiningAdapter= new JoiningAdapter(list,getContext(),userObjectClass);
         courses.setAdapter(joiningAdapter);
+        final List<String> ids = new ArrayList<>();
 
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
+
                     for (DataSnapshot issue : dataSnapshot.getChildren()) {
-                        MessageClassObject=issue.getValue(AddCourseClass.class);
-                        list.add(MessageClassObject);
+                            MessageClassObject=issue.getValue(JoinClass.class);
+
+                        if (issue.child("userID").getValue().equals(userObjectClass.getUID()))
+                        {
+                            reference.child("Courses").orderByChild("courseID").equalTo(MessageClassObject.getCourseID()).addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                        if (ids.contains(MessageClassObject.getCourseID())==false) {
+                                            ids.add(MessageClassObject.getCourseID());
+                                            list.add(snapshot.getValue(AddCourseClass.class));
+                                        }
+                                    }
+                                    joiningAdapter.notifyDataSetChanged();
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+                        }
                     }
-
-                    joiningAdapter.notifyDataSetChanged();
                 }
-
                 else {
-                    Toast.makeText(getContext(), "Not Courses in this Category", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "No Courses in this Category", Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -111,6 +161,5 @@ public class JoiningFragment extends Fragment implements JoinCourseInterface{
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-
     }
 }

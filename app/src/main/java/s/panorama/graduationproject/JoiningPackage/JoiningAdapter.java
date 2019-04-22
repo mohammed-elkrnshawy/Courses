@@ -44,7 +44,7 @@ public class JoiningAdapter extends RecyclerView.Adapter<JoiningAdapter.MyHolder
         holder.CourseName.setText(data.getCourseTitle());
         holder.CourseDesc.setText(data.getCourseDesc());
         ImageLoader.getInstance().displayImage(data.getCourseImage(),holder.CourseImage);
-        holder.see.setOnClickListener(new View.OnClickListener() {
+    /*    holder.see.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(context, CourseDetailsActivity.class);
@@ -52,7 +52,7 @@ public class JoiningAdapter extends RecyclerView.Adapter<JoiningAdapter.MyHolder
                 intent.putExtra("userData",userObjectClass);
                 context.startActivity(intent);
             }
-        });
+        });*/
     }
 
     @Override
@@ -69,7 +69,7 @@ public class JoiningAdapter extends RecyclerView.Adapter<JoiningAdapter.MyHolder
             CourseName =  itemView.findViewById(R.id.name);
             CourseDesc =  itemView.findViewById(R.id.desc);
             CourseImage=itemView.findViewById(R.id.image);
-            see=itemView.findViewById(R.id.seeMore);
+            //see=itemView.findViewById(R.id.seeMore);
 
         }
     }

@@ -123,7 +123,7 @@ final List<String> ids = new ArrayList<>();
                     }
                 }
                 else {
-                    Toast.makeText(getContext(), "Not Courses in this Category", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "No Followers in this Category", Toast.LENGTH_LONG).show();
                 }
             }
 
