@@ -94,7 +94,7 @@ public class JoiningFragment extends Fragment implements JoinCourseInterface{
 //
 //        query.addValueEventListener(new ValueEventListener() {
 //            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
+//            public void onDataChange(DataSnapshot dataSnalpshot) {
 //                if (dataSnapshot.exists()) {
 //                    for (DataSnapshot issue : dataSnapshot.getChildren()) {
 //                        MessageClassObject=issue.getValue(AddCourseClass.class);

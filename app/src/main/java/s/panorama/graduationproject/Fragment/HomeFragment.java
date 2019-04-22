@@ -1,4 +1,4 @@
-package s.panorama.graduationproject.AddCourse;
+package s.panorama.graduationproject.Fragment;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -28,6 +28,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import s.panorama.graduationproject.AddCourse.AddCourseActivity;
+import s.panorama.graduationproject.AddCourse.AddCourseClass;
+import s.panorama.graduationproject.AddCourse.CoursesAdapter;
+import s.panorama.graduationproject.AddCourse.CoursesInterface;
+import s.panorama.graduationproject.AddCourse.CoursesPresenter;
 import s.panorama.graduationproject.Classes.CameraFirebase;
 import s.panorama.graduationproject.Classes.Constant;
 import s.panorama.graduationproject.Models.UserObjectClass;
@@ -42,7 +46,7 @@ public class HomeFragment extends Fragment implements CoursesInterface {
     Unbinder unbinder;
 
     private View view;
-    List<AddCourseClass> list;
+    private List<AddCourseClass> list;
     private AddCourseClass MessageClassObject;
     private CoursesPresenter coursesPresenter;
     private CoursesAdapter coursesAdapter;
@@ -111,7 +115,7 @@ public class HomeFragment extends Fragment implements CoursesInterface {
                     coursesAdapter.notifyDataSetChanged();
                 }
                 else {
-                    Toast.makeText(getContext(), "Not Courses in this Category", Toast.LENGTH_LONG).show();
+                    Toast.makeText(view.getContext(), "Not Courses in this Category", Toast.LENGTH_LONG).show();
                 }
             }
 

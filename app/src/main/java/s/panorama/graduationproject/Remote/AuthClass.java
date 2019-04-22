@@ -173,7 +173,7 @@ public class AuthClass {
                             FirebaseUser user = mAuth.getCurrentUser();
                             if (user.isEmailVerified()) {
                                 userObject.setUID(user.getUid());
-                                Search();
+                                Search(user.getUid());
                             } else {
                                 progressDialog.dismiss();
                                 Toast.makeText(context, "Pls Valid Email", Toast.LENGTH_SHORT).show();
@@ -189,8 +189,8 @@ public class AuthClass {
                 });
     }
 
-    private void Search() {
-        Query query = mDatabase.child(Constant.rootUsers).child(userObject.getUID());
+    public void Search(String userUID) {
+        Query query = mDatabase.child(Constant.rootUsers).child(userUID);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -209,9 +209,11 @@ public class AuthClass {
         });
     }
 
-    private void SharedPreferencesPut(String Token) {
+    private void SharedPreferencesPut(String UserUID) {
+        //SharedPreferences.Editor editor = context.getSharedPreferences(context.getApplicationContext().getPackageName(), MODE_PRIVATE).edit();
         SharedPreferences.Editor editor = context.getSharedPreferences(context.getPackageName(), MODE_PRIVATE).edit();
-        editor.putString("Token", Token);
+        editor.putString("Token", UserUID);
+        editor.putBoolean("isLogin", true);
         editor.apply();
     }
 

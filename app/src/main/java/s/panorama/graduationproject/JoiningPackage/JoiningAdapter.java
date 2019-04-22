@@ -14,6 +14,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import java.util.List;
 
 import s.panorama.graduationproject.AddCourse.AddCourseClass;
+import s.panorama.graduationproject.CourseDetailsPackage.CourseDetailsActivity;
 import s.panorama.graduationproject.Models.UserObjectClass;
 import s.panorama.graduationproject.R;
 

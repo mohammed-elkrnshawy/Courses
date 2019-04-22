@@ -48,9 +48,6 @@ public class FollowingFragment extends Fragment implements FollowCourseInterface
     private FollowCoursePresenter followCoursePresenter;
 
 
-
-
-
     public FollowingFragment() {
         // Required empty public constructor
     }
@@ -74,8 +71,6 @@ public class FollowingFragment extends Fragment implements FollowCourseInterface
     }
 
 
-
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -89,9 +84,9 @@ public class FollowingFragment extends Fragment implements FollowCourseInterface
         Query query = reference.child("Follow").orderByChild("followerID").equalTo(MessageClassObject.getUID());
         RecyclerView.LayoutManager layoutmanager = new LinearLayoutManager(getContext());
         following.setLayoutManager(layoutmanager);
-        followingAdapter = new FollowingAdapter(list,getContext());
+        followingAdapter = new FollowingAdapter(list, getContext());
         following.setAdapter(followingAdapter);
-final List<String> ids = new ArrayList<>();
+        final List<String> ids = new ArrayList<>();
 
         query.addValueEventListener(new ValueEventListener() {
             @Override
@@ -99,14 +94,13 @@ final List<String> ids = new ArrayList<>();
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot issue : dataSnapshot.getChildren()) {
 
-                        if (issue.child("followerID").getValue().equals(MessageClassObject.getUID()))
-                        {
+                        if (issue.child("followerID").getValue().equals(MessageClassObject.getUID())) {
                             reference.child("Users").orderByChild("uid").equalTo(issue.child("follwedID").getValue().toString()).addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                         UserObjectClass userObjectClass = snapshot.getValue(UserObjectClass.class);
-                                        if (ids.contains(userObjectClass.getUID())==false) {
+                                        if (ids.contains(userObjectClass.getUID()) == false) {
                                             ids.add(userObjectClass.getUID());
                                             list.add(userObjectClass);
                                         }
@@ -134,5 +128,5 @@ final List<String> ids = new ArrayList<>();
 
     }
 
-    }
+}
 

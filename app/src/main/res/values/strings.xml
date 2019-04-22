@@ -39,7 +39,7 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="birthdate">Birthdate</string>
     <string name="phone">Phone</string>
-    <string name="posts">Posts</string>
+    <string name="posts">Post</string>
     <string name="notification">Notification</string>
     <string name="takephoto">Take Photo</string>
     <string name="choosegallery">Choose Gallery</string>
@@ -60,4 +60,7 @@
     <string name="AddCourse">Add Course</string>
     <string name="follow">Follow</string>
     <string name="join">Join</string>
+    <string name="course">Course</string>
+    <string name="type">Type</string>
+    <string name="home">Home</string>
 </resources>

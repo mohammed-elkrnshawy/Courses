@@ -17,7 +17,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".JoiningPackage.CourseDetailsActivity"></activity>
+        <activity android:name=".CourseDetailsPackage.CourseDetailsActivity"></activity>
         <activity android:name=".ProfilePackage.EditProfileActivity" />
 
         <meta-data

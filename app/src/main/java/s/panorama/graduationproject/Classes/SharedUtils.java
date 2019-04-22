@@ -8,7 +8,13 @@ import android.view.Window;
 
 import s.panorama.graduationproject.R;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class SharedUtils {
+
+    public static String getLocalization(final Context context) {
+        return context.getSharedPreferences(context.getPackageName(), MODE_PRIVATE).getString("language", "ar");
+    }
 
     public static Dialog ShowWaiting(Context context,Dialog progressDialog) {
         progressDialog = new Dialog(context);

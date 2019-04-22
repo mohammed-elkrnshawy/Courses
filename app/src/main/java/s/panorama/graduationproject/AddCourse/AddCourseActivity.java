@@ -8,12 +8,15 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.text.NumberFormat;
 import java.util.Calendar;
@@ -24,6 +27,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import s.panorama.graduationproject.Activity.MapsActivity;
 import s.panorama.graduationproject.Classes.CameraFirebase;
+import s.panorama.graduationproject.Classes.CitiesClass;
 import s.panorama.graduationproject.Classes.Constant;
 import s.panorama.graduationproject.Models.UserObjectClass;
 import s.panorama.graduationproject.R;
@@ -32,8 +36,10 @@ public class AddCourseActivity extends AppCompatActivity implements AddCourseInt
 
     @BindView(R.id.image)
     ImageView image;
-    @BindView(R.id.radio)
-    RadioButton radio;
+    @BindView(R.id.radioCourse)
+    RadioButton radioCourse;
+    @BindView(R.id.radioPost)
+    RadioButton radioPost;
     @BindView(R.id.edtTitle)
     EditText edtTitle;
     @BindView(R.id.edtdesc)
@@ -43,7 +49,7 @@ public class AddCourseActivity extends AppCompatActivity implements AddCourseInt
     @BindView(R.id.edtLocation)
     TextView edtLocation;
     @BindView(R.id.edtAdress)
-    EditText edtAdress;
+    Spinner edtAdress;
     @BindView(R.id.edtstart)
     TextView edtstart;
     @BindView(R.id.edtend)
@@ -54,14 +60,14 @@ public class AddCourseActivity extends AppCompatActivity implements AddCourseInt
     EditText edtcurrent;
 
 
+    private CitiesClass citiesClass;
     private CameraFirebase cameraFirebase;
     private AddCourseClass addCourseClass;
     private AddCoursePresenter addCoursePresenter;
     private Uri courseUriFilePath;
     private UserObjectClass userObjectClass;
-    private String hours,minuts;
-    public String TimeFrom;
-    private String address;
+    private String address,cityName;
+    private int cityID;
     private double lat , lon ;
 
 
@@ -73,7 +79,23 @@ public class AddCourseActivity extends AppCompatActivity implements AddCourseInt
         ButterKnife.bind(this);
         getIntentData();
         initComponents();
+        changeSpinner();
+    }
 
+    private void changeSpinner() {
+        edtAdress.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                CitiesClass.cityData data=(CitiesClass.cityData) parent.getItemAtPosition(position);
+                cityID=data.getID();
+                cityName=data.getName();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     private void getIntentData() {
@@ -85,24 +107,10 @@ public class AddCourseActivity extends AppCompatActivity implements AddCourseInt
 
     private void initComponents() {
         cameraFirebase = new CameraFirebase(this);
+        citiesClass=new CitiesClass(this);
         addCourseClass = new AddCourseClass();
         addCoursePresenter = new AddCoursePresenter(this);
-
-        edtstart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addCoursePresenter.selectDate(edtstart);
-            }
-        });
-
-        edtend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addCoursePresenter.selectDate(edtend);
-            }
-        });
-
-
+        citiesClass.PrepareSpinner(edtAdress);
     }
 
 
@@ -134,13 +142,6 @@ public class AddCourseActivity extends AppCompatActivity implements AddCourseInt
             return;
         }
 
-        if (TextUtils.isEmpty(edtAdress.getText())) {
-            edtAdress.setError(getResources().getString(R.string.requiredField));
-            edtAdress.requestFocus();
-            return;
-        }
-
-
         if (TextUtils.isEmpty(edtstart.getText())) {
             edtstart.setError(getResources().getString(R.string.requiredField));
             edtstart.requestFocus();
@@ -165,13 +166,17 @@ public class AddCourseActivity extends AppCompatActivity implements AddCourseInt
             return;
         }
 
-
+        if (radioCourse.isChecked())
+            addCourseClass.setCourseType(radioCourse.getText().toString().trim());
+        else
+            addCourseClass.setCourseType(radioPost.getText().toString().trim());
         addCourseClass.setUID(userObjectClass.getUID());
         addCourseClass.setUsername(userObjectClass.getUsername());
         addCourseClass.setCourseTitle(edtTitle.getText().toString().trim());
         addCourseClass.setCourseDesc(edtdesc.getText().toString().trim());
         addCourseClass.setCourseLocation(edtLocation.getText().toString().trim());
-        addCourseClass.setCourseAddress(edtAdress.getText().toString().trim());
+        addCourseClass.setCourseAddress(cityName);
+        addCourseClass.setCourseAddressID(cityID);
         addCourseClass.setCoursePrice(edtPrice.getText().toString().trim());
         addCourseClass.setCourseStart(edtstart.getText().toString().trim());
         addCourseClass.setCourseEnd(edtend.getText().toString().trim());
@@ -199,7 +204,7 @@ public class AddCourseActivity extends AppCompatActivity implements AddCourseInt
         }
     }
 
-    @OnClick({ R.id.image, R.id.btncancelJoin,R.id.edtLocation})
+    @OnClick({ R.id.image, R.id.btncancelJoin,R.id.edtLocation,R.id.edtstart,R.id.edtend})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.image:
@@ -208,8 +213,14 @@ public class AddCourseActivity extends AppCompatActivity implements AddCourseInt
             case R.id.btncancelJoin:
                 addCoursePresenter.validate();
                 break;
-                case R.id.edtLocation:
-                    startActivityForResult(new Intent(AddCourseActivity.this, MapsActivity.class), Constant.Map);
+            case R.id.edtstart:
+                addCoursePresenter.selectDate(edtstart);
+                break;
+            case R.id.edtend:
+                addCoursePresenter.selectDate(edtend);
+                break;
+            case R.id.edtLocation:
+                startActivityForResult(new Intent(AddCourseActivity.this, MapsActivity.class), Constant.Map);
                 break;
         }
     }

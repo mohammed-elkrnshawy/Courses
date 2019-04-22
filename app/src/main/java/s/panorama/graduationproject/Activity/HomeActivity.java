@@ -2,6 +2,8 @@ package s.panorama.graduationproject.Activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -15,15 +17,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+
+import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import s.panorama.graduationproject.Fragment.AboutFragment;
 import s.panorama.graduationproject.FollowingPackage.FollowingFragment;
-import s.panorama.graduationproject.AddCourse.HomeFragment;
+import s.panorama.graduationproject.Fragment.HomeFragment;
 import s.panorama.graduationproject.JoiningPackage.JoiningFragment;
 import s.panorama.graduationproject.Fragment.NotificationFragment;
 import s.panorama.graduationproject.ProfilePackage.ProfileFragment;
@@ -34,7 +39,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private Bundle bundleFragments;
     private View header;
-    private LinearLayout PersonalPage,Following,Joining,About,Logout;
+    private LinearLayout relativeHome,PersonalPage,Following,Joining,About,Logout;
     private static TextView userName;
     private static ImageView personPhoto;
     private static UserObjectClass userObject;
@@ -58,7 +63,7 @@ public class HomeActivity extends AppCompatActivity {
         InitComponents();
         getIntentData();
         setToolBar();
-        setFragment(new HomeFragment(),getString(R.string.personal));
+        setFragment(new HomeFragment(),getString(R.string.home));
         onClick();
 
     }
@@ -93,6 +98,7 @@ public class HomeActivity extends AppCompatActivity {
         bundleFragments=new Bundle();
 
         header=navigationView.getHeaderView(0);
+        relativeHome=header.findViewById(R.id.relativeHome);
         PersonalPage=header.findViewById(R.id.personal);
         Joining=header.findViewById(R.id.joining);
         Following=header.findViewById(R.id.following);
@@ -112,6 +118,14 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void onClick() {
+
+        relativeHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setFragment(new HomeFragment(),getString(R.string.home));
+            }
+        });
+
         PersonalPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -148,9 +162,28 @@ public class HomeActivity extends AppCompatActivity {
         Logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(HomeActivity.this,LoginActivity.class);
-                startActivity(intent);
-                drawerLayout.closeDrawers();
+                new AsyncTask<Void,Void,Void>() {
+                    @Override
+                    protected Void doInBackground(Void... params) {
+                        try
+                        {
+                            FirebaseInstanceId.getInstance().deleteInstanceId();
+                        } catch (IOException e)
+                        {
+                            e.printStackTrace();
+                        }
+                        return null;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Void result) {
+                        // Call your Activity where you want to land after log out
+                        drawerLayout.closeDrawers();
+                        ClearSharedPreferencesPut();
+                        startActivity(new Intent(HomeActivity.this,LoginActivity.class));
+                        finishAffinity();
+                    }
+                }.execute();
             }
         });
 
@@ -184,6 +217,13 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void ClearSharedPreferencesPut() {
+        SharedPreferences.Editor editor = getSharedPreferences(getApplication().getPackageName(), MODE_PRIVATE).edit();
+        editor.clear();
+        editor.apply();
+        finish();
     }
 
 }
