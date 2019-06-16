@@ -12,6 +12,7 @@
         android:src="@drawable/hour"
         android:layout_centerInParent="true"
         android:layout_width="wrap_content"
+        android:tint="@color/colorPrimary"
         android:layout_height="wrap_content" />
 
 

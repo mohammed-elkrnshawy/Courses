@@ -53,12 +53,14 @@
                 <RadioButton
                     android:checked="true"
                     android:text="@string/course"
+                    android:buttonTint="@color/colorPrimary"
                     android:id="@+id/radioCourse"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content" />
 
             <RadioButton
                 android:text="@string/posts"
+                android:buttonTint="@color/colorPrimary"
                 android:id="@+id/radioPost"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content" />

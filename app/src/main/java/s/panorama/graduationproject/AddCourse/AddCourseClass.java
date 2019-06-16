@@ -6,9 +6,6 @@ public class AddCourseClass implements Serializable {
     private String UID;
     private String CourseID;
     private String PersonalPhoto;
-
-
-
     private String Username;
     private String CourseImage;
     private String CourseTitle;

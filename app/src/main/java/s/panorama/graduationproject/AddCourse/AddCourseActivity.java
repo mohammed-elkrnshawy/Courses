@@ -170,6 +170,7 @@ public class AddCourseActivity extends AppCompatActivity implements AddCourseInt
             addCourseClass.setCourseType(radioCourse.getText().toString().trim());
         else
             addCourseClass.setCourseType(radioPost.getText().toString().trim());
+
         addCourseClass.setUID(userObjectClass.getUID());
         addCourseClass.setUsername(userObjectClass.getUsername());
         addCourseClass.setCourseTitle(edtTitle.getText().toString().trim());
