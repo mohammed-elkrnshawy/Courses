@@ -22,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,6 +34,7 @@ import s.panorama.graduationproject.AddCourse.CoursesAdapter;
 import s.panorama.graduationproject.AddCourse.CoursesInterface;
 import s.panorama.graduationproject.AddCourse.CoursesPresenter;
 import s.panorama.graduationproject.Classes.CameraFirebase;
+import s.panorama.graduationproject.Classes.CitiesClass;
 import s.panorama.graduationproject.Classes.Constant;
 import s.panorama.graduationproject.Models.UserObjectClass;
 import s.panorama.graduationproject.R;
@@ -94,7 +96,7 @@ public class HomeFragment extends Fragment implements CoursesInterface {
 
     @Override
     public void ShowResponse() {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+       DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         list.clear();
         Query query = reference.child("Courses");
         RecyclerView.LayoutManager layoutmanager = new LinearLayoutManager(getContext());
@@ -123,5 +125,6 @@ public class HomeFragment extends Fragment implements CoursesInterface {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+
     }
 }

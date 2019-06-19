@@ -19,6 +19,13 @@ import s.panorama.graduationproject.Adapter.LocationAdapter;
 
 public class CitiesClass {
 
+
+    public CitiesClass()
+    {
+
+    }
+
+
     public class cityData{
         private String name;
         private int ID;
@@ -26,6 +33,12 @@ public class CitiesClass {
         public cityData(String name,int ID){
             this.ID=ID;
             this.name=name;
+        }
+
+
+        public cityData()
+        {
+
         }
 
         public int getID() {
