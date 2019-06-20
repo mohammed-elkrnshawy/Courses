@@ -32,29 +32,34 @@
 
 
 
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+
+            android:layout_height="wrap_content">
+
         <ImageView
-            android:layout_toStartOf="@id/notification"
             android:id="@+id/location"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:padding="5dp"
             android:tint="@color/colorPrimary"
-            android:layout_centerVertical="true"
             android:src="@drawable/ic_location"
             />
 
-        <ImageView
-            android:layout_alignParentEnd="true"
-            android:id="@+id/notification"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:padding="5dp"
-            android:tint="@color/colorPrimary"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_notification"
-            />
 
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/edtAdress"
+                android:visibility="gone"
 
+                android:layout_centerVertical="true"
+                ></Spinner>
+
+        </RelativeLayout>
 
 
 

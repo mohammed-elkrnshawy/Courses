@@ -25,6 +25,7 @@
     <string name="duration">الميعاد</string>
     <string name="start">وقت البداية</string>
     <string name="end">وقت النهاية</string>
+    <string name="pleaseOpenGPS">فتح الـGPS</string>
     <string name="open_gps">افتح الGPS</string>
     <string name="get_location">اختار الموقع</string>
     <string name="please_open_gps">افتح الGPS</string>

@@ -115,7 +115,7 @@ public class JoiningFragment extends Fragment implements JoinCourseInterface{
 //        });
         final DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         list.clear();
-        Query query = reference.child("Join")/*.equalTo(MessageClassObject.getCourseID())*/;
+        Query query = reference.child("Join").orderByChild("userID").equalTo(userObjectClass.getUID());
         RecyclerView.LayoutManager layoutmanager = new LinearLayoutManager(getContext());
         courses.setLayoutManager(layoutmanager);
         joiningAdapter= new JoiningAdapter(list,getContext(),userObjectClass);
@@ -129,7 +129,7 @@ public class JoiningFragment extends Fragment implements JoinCourseInterface{
 
                     for (DataSnapshot issue : dataSnapshot.getChildren()) {
                             MessageClassObject=issue.getValue(JoinClass.class);
-
+String s = issue.child("userID").getValue(String.class);
                         if (issue.child("userID").getValue().equals(userObjectClass.getUID()))
                         {
                             reference.child("Courses").orderByChild("courseID").equalTo(MessageClassObject.getCourseID()).addValueEventListener(new ValueEventListener() {

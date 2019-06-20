@@ -59,6 +59,7 @@
     <string name="logout">Logout</string>
     <string name="AddCourse">Add Course</string>
     <string name="follow">Follow</string>
+    <string name="pleaseOpenGPS">Open GPS</string>
     <string name="join">Join</string>
     <string name="course">Course</string>
     <string name="type">Type</string>

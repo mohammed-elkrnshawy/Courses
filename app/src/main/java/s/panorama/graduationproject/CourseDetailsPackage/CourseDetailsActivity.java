@@ -140,12 +140,12 @@ public class CourseDetailsActivity extends AppCompatActivity implements CourseDe
 
 
         DatabaseReference rootRef2 = FirebaseDatabase.getInstance().getReference("Follow");
-        rootRef2.orderByChild("follwedID").equalTo(addCourseClass.getUID()).addListenerForSingleValueEvent(new ValueEventListener() {
+        rootRef2.orderByChild("follwedID").equalTo(userObjectClass.getUID()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot tasksSnapshot) {
                 for (DataSnapshot snapshot: tasksSnapshot.getChildren())
                 {
-                    if(snapshot.child("followerID").getValue().equals(userObjectClass.getUID())&& snapshot.child("follwedID").getValue().equals(addCourseClass.getUID()))
+                    if(snapshot.child("followerID").getValue().equals(addCourseClass.getUID())&& snapshot.child("follwedID").getValue().equals(userObjectClass.getUID()))
                         followCourse.setVisibility(View.GONE);
                 }
             }

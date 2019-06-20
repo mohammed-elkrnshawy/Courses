@@ -2,7 +2,11 @@ package s.panorama.graduationproject.Fragment;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -13,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.android.gms.location.GeofenceStatusCodes;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -36,6 +42,7 @@ import s.panorama.graduationproject.AddCourse.CoursesPresenter;
 import s.panorama.graduationproject.Classes.CameraFirebase;
 import s.panorama.graduationproject.Classes.CitiesClass;
 import s.panorama.graduationproject.Classes.Constant;
+import s.panorama.graduationproject.Classes.getCurrentLocation;
 import s.panorama.graduationproject.Models.UserObjectClass;
 import s.panorama.graduationproject.R;
 
@@ -53,6 +60,11 @@ public class HomeFragment extends Fragment implements CoursesInterface {
     private CoursesPresenter coursesPresenter;
     private CoursesAdapter coursesAdapter;
     private UserObjectClass userObjectClass;
+    private Geocoder coder;
+    private String City;
+    public static Location defaultLocation;
+    public static getCurrentLocation currentLocation;
+
 
 
 
@@ -66,7 +78,10 @@ public class HomeFragment extends Fragment implements CoursesInterface {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_home, container, false);
         unbinder = ButterKnife.bind(this, view);
+        if(getArguments() != null)
+        City = getArguments().getString("city");
         initComponents();
+
         return view;
     }
     private void initComponents() {
@@ -92,10 +107,28 @@ public class HomeFragment extends Fragment implements CoursesInterface {
         intent.putExtra("userData", userObjectClass);
         startActivity(intent);
     }
-
-
+Address address2;
+Address addressCity;
     @Override
     public void ShowResponse() {
+        coder = new Geocoder(getContext());
+        currentLocation=new getCurrentLocation(getContext());
+
+        defaultLocation=currentLocation.getCurrentLocation();
+
+        if(defaultLocation == null) {
+            defaultLocation = new Location("");
+            defaultLocation.setLatitude(0);
+            defaultLocation.setLongitude(0);
+            (new Handler()).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    ShowResponse();
+                }
+            }, 3000);
+            Toast.makeText(getContext(),"Need to open GPS",Toast.LENGTH_LONG);
+            return;
+        }
        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         list.clear();
         Query query = reference.child("Courses");
@@ -103,7 +136,20 @@ public class HomeFragment extends Fragment implements CoursesInterface {
         courses.setLayoutManager(layoutmanager);
         coursesAdapter = new CoursesAdapter(list,getContext(),userObjectClass);
         courses.setAdapter(coursesAdapter);
-
+        try {
+            List<Address> addressList = coder.getFromLocation(defaultLocation.getLatitude(),defaultLocation.getLongitude(),1);
+            if(addressList != null && addressList.size() > 0){
+                address2 = addressList.get(0);
+            }
+            if(City != null){
+                List<Address>  addressesCities = coder.getFromLocationName(City,1);
+                if(addressesCities != null && addressesCities.size() > 0){
+                    addressCity = addressesCities.get(0);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -111,7 +157,26 @@ public class HomeFragment extends Fragment implements CoursesInterface {
                     list.clear();
                     for (DataSnapshot issue : dataSnapshot.getChildren()) {
                         MessageClassObject=issue.getValue(AddCourseClass.class);
-                        list.add(MessageClassObject);
+                        try {
+                            Address address;
+                            List<Address> addresses = coder.getFromLocationName(MessageClassObject.getCourseLocation(),1);
+                            if(addresses != null && addresses.size() > 0)
+                            {
+                            address = addresses.get(0);
+                            if(address.getAdminArea() != null){
+
+                                if(City == null && address.getAdminArea().equalsIgnoreCase(address2.getAdminArea())){
+                                    list.add(MessageClassObject);
+                                }
+                                else if(City != null && (address.getAdminArea().equalsIgnoreCase(addressCity.getAdminArea()) || address.getAdminArea().equalsIgnoreCase(addressCity.getLocality()))){
+                                    list.add(MessageClassObject);
+                                }
+                            }
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
                     }
 
                     coursesAdapter.notifyDataSetChanged();

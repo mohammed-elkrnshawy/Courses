@@ -13,8 +13,10 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -26,6 +28,9 @@ import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import s.panorama.graduationproject.AddCourse.AddCourseClass;
+import s.panorama.graduationproject.AddCourse.AddCoursePresenter;
+import s.panorama.graduationproject.Classes.CitiesClass;
 import s.panorama.graduationproject.Fragment.AboutFragment;
 import s.panorama.graduationproject.FollowingPackage.FollowingFragment;
 import s.panorama.graduationproject.Fragment.HomeFragment;
@@ -43,6 +48,8 @@ public class HomeActivity extends AppCompatActivity {
     private static TextView userName;
     private static ImageView personPhoto;
     private static UserObjectClass userObject;
+    private CitiesClass citiesClass;
+
 
 
     @BindView(R.id.toolbar)
@@ -53,16 +60,20 @@ public class HomeActivity extends AppCompatActivity {
     DrawerLayout drawerLayout ;
 
 
+    Spinner edtAdress;
+    private String cityName;
+    private int cityID;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
-
+        setToolBar();
         InitComponents();
         getIntentData();
-        setToolBar();
         setFragment(new HomeFragment(),getString(R.string.home));
         onClick();
 
@@ -106,6 +117,12 @@ public class HomeActivity extends AppCompatActivity {
         Logout=header.findViewById(R.id.logout);
         personPhoto=header.findViewById(R.id.userImage);
         userName=header.findViewById(R.id.userName);
+
+
+
+        citiesClass=new CitiesClass(this);
+
+        citiesClass.PrepareSpinner(edtAdress);
 
     }
 
@@ -195,7 +212,7 @@ public class HomeActivity extends AppCompatActivity {
 
         ImageView menu = view.findViewById(R.id.menu);
         ImageView location = view.findViewById(R.id.location);
-        ImageView notification = view.findViewById(R.id.notification);
+        edtAdress = view.findViewById(R.id.edtAdress);
 
         toolbar.addView(view);
 
@@ -210,12 +227,34 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        notification.setOnClickListener(new View.OnClickListener() {
+
+        location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setFragment(new NotificationFragment(),getString(R.string.notification));
+                edtAdress.setVisibility(View.VISIBLE);
             }
         });
+
+
+        edtAdress.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                CitiesClass.cityData data = (CitiesClass.cityData) parent.getItemAtPosition(position);
+                cityID = data.getID();
+                cityName = data.getName();
+                bundleFragments.putString("city",cityName);
+                HomeFragment fragment = new HomeFragment();
+                setFragment(fragment, getString(R.string.home));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+
 
     }
 
