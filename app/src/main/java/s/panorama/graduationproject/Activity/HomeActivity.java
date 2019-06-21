@@ -49,6 +49,8 @@ public class HomeActivity extends AppCompatActivity {
     private static ImageView personPhoto;
     private static UserObjectClass userObject;
     private CitiesClass citiesClass;
+    public static LinearLayout linearLayoutSearch;
+
 
 
 
@@ -214,6 +216,8 @@ public class HomeActivity extends AppCompatActivity {
         ImageView location = view.findViewById(R.id.location);
         edtAdress = view.findViewById(R.id.edtAdress);
 
+        linearLayoutSearch=view.findViewById(R.id.linearSearch);
+
         toolbar.addView(view);
 
         menu.setOnClickListener(new View.OnClickListener() {
@@ -252,6 +256,7 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         });
+
 
 
 

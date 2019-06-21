@@ -64,4 +64,10 @@
     <string name="course">Course</string>
     <string name="type">Type</string>
     <string name="home">Home</string>
+    <string name="search">Search Here</string>
+
+    <string name="search_string">Filter</string>
+    <string name="using_violation_number">Using violation number</string>
+    <string name="using_car_plate">Using car plate</string>
+    <string name="all">Show All</string>
 </resources>

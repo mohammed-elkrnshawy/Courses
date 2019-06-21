@@ -15,6 +15,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.location.GeofenceStatusCodes;
@@ -29,11 +35,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import s.panorama.graduationproject.Activity.HomeActivity;
 import s.panorama.graduationproject.AddCourse.AddCourseActivity;
 import s.panorama.graduationproject.AddCourse.AddCourseClass;
 import s.panorama.graduationproject.AddCourse.CoursesAdapter;
@@ -65,6 +73,11 @@ public class HomeFragment extends Fragment implements CoursesInterface {
     public static Location defaultLocation;
     public static getCurrentLocation currentLocation;
 
+    private EditText edtSearch;
+    private Dialog searchDialog;
+
+
+
 
 
 
@@ -78,9 +91,20 @@ public class HomeFragment extends Fragment implements CoursesInterface {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_home, container, false);
         unbinder = ButterKnife.bind(this, view);
+        HomeActivity.linearLayoutSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                openSearchDialog();
+
+            }
+        });
         if(getArguments() != null)
         City = getArguments().getString("city");
         initComponents();
+
+
+
 
         return view;
     }
@@ -89,9 +113,40 @@ public class HomeFragment extends Fragment implements CoursesInterface {
         userObjectClass = (UserObjectClass) getArguments().getSerializable("userData");
         coursesPresenter = new CoursesPresenter(this);
         coursesPresenter.Show();
+
     }
 
+    private void openSearchDialog() {
+        searchDialog = new Dialog(getActivity());
+        searchDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        searchDialog.setContentView(R.layout.dialog_search);
+        Objects.requireNonNull(searchDialog.getWindow()).setLayout(WindowManager.LayoutParams.WRAP_CONTENT,
+                WindowManager.LayoutParams.WRAP_CONTENT);
+        searchDialog.setCancelable(true);
+        edtSearch = searchDialog.findViewById(R.id.searchQuery);
 
+        Button btnConfirm = searchDialog.findViewById(R.id.btnConfirm);
+        Button btnClear = searchDialog.findViewById(R.id.btnClear);
+
+        btnClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                coursesAdapter = new CoursesAdapter(list,getContext(),userObjectClass);
+                courses.setAdapter(coursesAdapter);
+                searchDialog.dismiss();
+            }
+        });
+        btnConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    if (!edtSearch.getText().toString().isEmpty()) {
+                        coursesPresenter.Search(edtSearch.getText().toString().trim());
+                    }
+                }
+
+        });
+        searchDialog.show();
+    }
 
 
 
@@ -191,5 +246,21 @@ Address addressCity;
             }
         });
 
+    }
+
+
+    @Override
+    public void search(String query) {
+        List<AddCourseClass> tempList = new ArrayList<>(list);
+        for(int i = 0; i <  tempList.size(); i++){
+                if (!tempList.get(i).getCourseDesc().contains(query)) {
+                    tempList.remove(tempList.get(i));
+                    i--;
+                }
+
+        }
+        searchDialog.dismiss();
+        coursesAdapter = new CoursesAdapter(tempList, getContext(), userObjectClass);
+        courses.setAdapter(coursesAdapter);
     }
 }

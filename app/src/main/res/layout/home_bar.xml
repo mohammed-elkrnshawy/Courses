@@ -33,6 +33,54 @@
 
 
 
+
+
+        <LinearLayout
+            android:layout_width="180dp"
+            android:elevation="3dp"
+            android:layout_margin="15dp"
+            android:layout_centerInParent="true"
+            android:id="@+id/linearSearch"
+            android:layout_height="60dp"
+            android:background="@drawable/shape_search"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_gravity="center"
+                android:tint="@color/colorWhite"
+                android:layout_height="20dp"
+                android:src="@drawable/search"
+                />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/search"
+                android:layout_marginStart="5dp"
+                android:textColor="@color/colorWhite"
+                android:layout_gravity="center"
+                />
+
+
+
+        </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_centerVertical="true"
@@ -45,17 +93,17 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:padding="5dp"
+            android:layout_centerVertical="true"
             android:tint="@color/colorPrimary"
             android:src="@drawable/ic_location"
             />
 
 
             <Spinner
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/edtAdress"
                 android:visibility="gone"
-
                 android:layout_centerVertical="true"
                 ></Spinner>
 

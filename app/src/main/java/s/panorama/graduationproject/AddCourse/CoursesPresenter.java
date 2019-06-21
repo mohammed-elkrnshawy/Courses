@@ -14,4 +14,8 @@ public class CoursesPresenter {
         view.ShowResponse();
     }
 
+    public void Search(String query){
+        view.search(query);
+    }
+
 }

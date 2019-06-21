@@ -64,4 +64,10 @@
     <string name="course">كورس</string>
     <string name="type">النوع</string>
     <string name="home">الرئيسية</string>
+    <string name="search">ابحث هنا</string>
+
+    <string name="search_string">الفلتره</string>
+    <string name="using_violation_number">Using violation number</string>
+    <string name="using_car_plate">Using car plate</string>
+    <string name="all">عرض الكل</string>
 </resources>
